@@ -1,0 +1,20 @@
+-muwx
+-i build/nrf24le1-sensor.ihx
+-M
+-Y
+-b HOME = 0x0000
+-b XSEG = 0x0001
+-b PSEG = 0x0001
+-b ISEG = 0x0000
+-b BSEG = 0x0000
+-k build/obj
+-k /opt/sdcc/bin/../share/sdcc/lib/large
+-k /usr/local/share/sdcc/lib/large
+-l mcs51
+-l libsdcc
+-l libint
+-l liblong
+-l libfloat
+build/obj/main.rel
+
+-e
