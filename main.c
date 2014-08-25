@@ -4,17 +4,17 @@
 
 #include "reg24le1.h"
 
-#define LED			1	// LED enable
-#define RF			1	// radio enable
-#define DHT			1	// DHT21/22 enable
-#define DS			1	// DS18B20 enable
-#define ADC			1	// ADC based light sensor
-#define SLEEP		1	// power save mode enable
-#define AES_ENC		1	// use aes encryption
-#define AES_DEC		0	// use aes decryption
+#define EN_LED			1	// LED enable
+#define EN_RF			1	// radio enable
+#define EN_DHT			1	// DHT21/22 enable
+#define EN_DS			1	// DS18B20 enable
+#define EN_ADC			1	// ADC based light sensor enable
+#define EN_SLEEP		1	// power save mode enable
+#define EN_AES_ENC		1	// use aes encryption
+#define EN_AES_DEC		0	// use aes decryption
 
-#if (AES_ENC == 1 || AES_DEC == 1)
-#define AES			1
+#if (EN_AES_ENC == 1 || EN_AES_DEC == 1)
+#define EN_AES			1
 #endif
 
 #define DHTUSEP0	0	// P0.X
@@ -35,7 +35,7 @@ struct CONFIG{
 	uint8_t srvaddr[5];	// server address to send
 	uint8_t maxsend;	// max message send retries
 	uint16_t sleeptm;	// wakepup by watchdog timeout, s ~8.5min max (0x1-0x1FF LSB first)
-#if AES
+#if EN_AES
 	uint8_t useaes;		// use aes encryption
 	uint8_t aeskey[16];	// aes encryption key
 #endif
@@ -43,14 +43,37 @@ struct CONFIG{
 
 __xdata __at(0xFC00) CONFIG_T config;
 
+typedef enum {
+	SENSOR_INFO = 0,	// not implemented
+	SENSOR_DATA,
+	SENSOR_ERROR
+} msgtype_t;
+
+typedef enum {
+	DS1820 = 0,
+	BH1750,
+	DHT,
+	BMP085,
+	ADC
+} sensortype_t;
+
+typedef enum {
+	TEMPERATURE = 0,
+	HUMIDITY,
+	PRESSURE,
+	LIGHT,
+	VOLTAGE
+} valuetype_t;
+
+//
 #define MSGLEN		16
 // message format
 typedef struct MESSAGE MESSAGE_T;
 struct MESSAGE{
-	uint8_t msgType;	// message type: 0 - info, 1 - sensor value, 2 - sensor error
+	msgtype_t msgType;	// message type: 0 - info, 1 - sensor value, 2 - sensor error
 	uint8_t sensorID;	// remote sensor ID
-	uint8_t sensorType;	// sensor type: 0 - DS1820, 1 - BH1750, 2 - DHT сенсор, 3 - BMP085, 4 - ADC
-	uint8_t valueType;	// value type: 0 - temperature, 1 - humidity, 2 - pressure, 3 - light, 4 - voltage
+	sensortype_t sensorType;	// sensor type: 0 - DS1820, 1 - BH1750, 2 - DHT сенсор, 3 - BMP085, 4 - ADC
+	valuetype_t valueType;	// value type: 0 - temperature, 1 - humidity, 2 - pressure, 3 - light, 4 - voltage
 	uint8_t owkey[8];	// sensor id for 1-wire, sensor number for DHT in owkey[0]
 	union	{			// sensor value depend of sensor type
 		float	fValue;
@@ -72,7 +95,7 @@ struct MESSAGE{
 
 #include "../SDK/src/interrupt/src/interrupt_configure_ifp.c"
 
-#if ADC
+#if EN_ADC
 #include "adc.h"
 #include "../SDK/src/adc/src/adc_configure.c"
 #include "../SDK/src/adc/src/adc_set_input_channel.c"
@@ -80,7 +103,7 @@ struct MESSAGE{
 #include "../SDK/src/adc/src/adc_start_single_conversion_get_value.c"
 #endif
 
-#if RF
+#if EN_RF
 #include "../SDK/src/rf/src/rf_read_rx_payload.c"
 #include "../SDK/src/rf/src/rf_configure_debug_lite.c"
 #include "../SDK/src/rf/src/rf_write_register.c"
@@ -102,13 +125,13 @@ struct MESSAGE{
 #include "./nRFLE.c"
 #endif
 
-#if SLEEP
+#if EN_SLEEP
 #include "../SDK/src/watchdog/src/watchdog_set_wdsv_count.c"
 #include "../SDK/src/watchdog/src/watchdog_start_and_set_timeout_in_ms.c"
 #include "../SDK/src/pwr_clk_mgmt/src/pwr_clk_mgmt_clklf_configure.c"
 #endif
 
-#if AES
+#if EN_AES
 #include "aes/include/aes.h"
 #include "aes/include/aes_user_options.h"
 #include "aes/include/enc_dec_accel.h"
@@ -124,14 +147,14 @@ aes_data_t aes_data;
 #endif
 
 
-#if AES_ENC
+#if EN_AES_ENC
 #include "aes/src/aes_sub_bytes.c"
 #include "aes/src/aes_mix_columns.c"
 #include "aes/src/aes_shift_rows.c"
 #include "aes/src/aes_encrypt_ecb.c"
 #endif
 
-#if AES_DEC
+#if EN_AES_DEC
 #include "aes/src/aes_get_sbox_inv.c"
 #include "aes/src/aes_sub_bytes_inv.c"
 #include "aes/src/aes_mix_columns_inv.c"
@@ -140,7 +163,7 @@ aes_data_t aes_data;
 #endif
 
 // DHT библиотеки
-#if DHT
+#if EN_DHT
 #define PIN0XVAL(p) ((P0 & (1 << (p % 8))) > 0 ? 1 : 0)		// read P0.X
 #define PIN1XVAL(p) ((P1 & (1 << (p % 8))) > 0 ? 1 : 0)		// read P1.X
 
@@ -237,7 +260,7 @@ dhterror_t dhtread(int *temp, int *hum) {
 #endif	//DHT
 
 // OneWire библиотеки
-#if DS
+#if EN_DS
 #define SKIP_ROM_CMD	0xcc
 #define START_CONV_CMD	0x44
 #define READ_SCR_CMD	0xbe
@@ -360,10 +383,10 @@ dserror_t dsread(float *temp) {
 }
 #endif //DS
 
-#if RF
+#if EN_RF
 void rfsend(const MESSAGE_T *msg) {
 	uint16_t timeout; uint8_t retry = config.maxsend;
-#if AES_ENC
+#if EN_AES_ENC
 	MESSAGE_T buf;
 	if (config.useaes) {
 		aes_encrypt_ecb(&aes_data, (unsigned char *) msg, (unsigned char *) buf);
@@ -378,7 +401,7 @@ start:
 		rf_flush_tx();
 
 	rf_irq_clear_all(); //clear all interrupts in the 24L01
-#if AES_ENC
+#if EN_AES_ENC
 	rf_write_tx_payload((uint8_t*) buf, MSGLEN, true); //transmit received char over RF
 #else
 	rf_write_tx_payload((uint8_t*) msg, MSGLEN, true); //transmit received char over RF
@@ -404,7 +427,7 @@ start:
 
 uint8_t rfread(MESSAGE_T *msg, uint16_t timeout) {	// timeout in 10us intervals
 	uint8_t state = 0;
-#if AES_DEC
+#if EN_AES_DEC
 	MESSAGE_T buf;
 #endif
 	rf_set_as_rx(true); //change the device to an RX to get the character back from the other 24L01
@@ -414,7 +437,7 @@ uint8_t rfread(MESSAGE_T *msg, uint16_t timeout) {	// timeout in 10us intervals
 		//wait a while to see if we get the data back (change the loop maximum and the lower if
 		//  argument (should be loop maximum - 1) to lengthen or shorten this time frame
 		if((rf_irq_pin_active() && rf_irq_rx_dr_active())) {
-#if AES_DEC
+#if EN_AES_DEC
 			rf_read_rx_payload((uint8_t*) buf, MSGLEN); //get the payload into data
 #else
 			rf_read_rx_payload((uint8_t*) msg, MSGLEN); //get the payload into data
@@ -424,7 +447,7 @@ uint8_t rfread(MESSAGE_T *msg, uint16_t timeout) {	// timeout in 10us intervals
 		}
 		delay_us(10);	// 10us
 	}
-#if AES_DEC
+#if EN_AES_DEC
 	if (config.useaes) {
 		aes_decrypt_ecb(&aes_data, (unsigned char *) buf, (unsigned char *) msg);
 	}
@@ -441,22 +464,22 @@ uint8_t rfread(MESSAGE_T *msg, uint16_t timeout) {	// timeout in 10us intervals
 // main
 void main(void) {
 
-#if ADC
+#if EN_ADC
 	int Light;
 #endif
 
-#if DHT
+#if EN_DHT
 	int DHTTemp, DHTHum;
 #endif
 
-#if DS
+#if EN_DS
     float DSTemp;
 #endif
 
 	MESSAGE_T message;
 	message.sensorID = config.sensorID;
 
-#if AES
+#if EN_AES
 	if (config.useaes) {
 		aes_initialize(&aes_data, AES_KEY_LENGTH_128_BITS, config.aeskey, NULL);
 	}
@@ -464,7 +487,7 @@ void main(void) {
 
 	delay_ms(20);
 
-#if RF
+#if EN_RF
  	radiobegin();					// init RF
 	openAllPipe();					// setting TX/RX addr
 	setAutoAck(config.autoask);
@@ -472,11 +495,11 @@ void main(void) {
 	setDataRate(config.datarate);	// 1 - 250кб , 2 - 1 мб , 3 -2 мб.
 #endif
 
-#if ADC
+#if EN_ADC
 	adc_configure (ADC_CONFIG_OPTION_RESOLUTION_10_BITS|ADC_CONFIG_OPTION_REF_SELECT_VDD |ADC_CONFIG_OPTION_RESULT_JUSTIFICATION_RIGHT);
 #endif
 
-#if LED
+#if EN_LED
 	// настроим порт LED
 	gpio_pin_configure(LEDPIN, 						// укажем необходимые параметры
 			GPIO_PIN_CONFIG_OPTION_DIR_OUTPUT |
@@ -486,7 +509,7 @@ void main(void) {
 	
 	while(1) {	// main loop
 
-#if LED
+#if EN_LED
 		if (gpio_pin_val_read(LEDPIN)) {
 			gpio_pin_val_clear(LEDPIN);		//установка 0
 		}
@@ -495,25 +518,25 @@ void main(void) {
 		}
 #endif
 
-#if ADC
+#if EN_ADC
 		adc_power_up();
 		Light = adc_start_single_conversion_get_value(LIGHTCH);
 		adc_power_down();
-		message.msgType = 1;
-		message.sensorType = 4;
-		message.valueType = 3;
+		message.msgType = SENSOR_DATA;
+		message.sensorType = ADC;
+		message.valueType = LIGHT;
 		message.data.iValue = Light;
 		rfsend(&message);
 #endif
 
-#if DS
-		message.msgType = 2;
-		message.sensorType = 0;
-		message.valueType = 0;
+#if EN_DS
+		message.msgType = SENSOR_ERROR;
+		message.sensorType = DS1820;
+		message.valueType = TEMPERATURE;
 		message.owkey[0] = 0x0;
 		if ((message.data.cValue[0] = dsread(&DSTemp)) == DS_NO_ERROR) {
 			// DS18B20 temperature send
-			message.msgType = 1;
+			message.msgType = SENSOR_DATA;
 			message.owkey[0] = 0x28;
 			message.data.fValue = DSTemp;
 		}
@@ -521,27 +544,27 @@ void main(void) {
 		gpio_pin_configure(DSPIN, GPIO_PIN_CONFIG_OPTION_DIR_INPUT);
 #endif	//DS
 
-#if DHT
-		message.msgType = 2;
-		message.sensorType = 2;
+#if EN_DHT
+		message.msgType = SENSOR_ERROR;
+		message.sensorType = DHT;
 		message.owkey[0] = 1;
 		if ((message.data.cValue[0] = dhtread(&DHTTemp, &DHTHum)) != DHT_NO_ERROR) {
 			rfsend(&message);
 		}
 		else {
 			// DHT temperature, humidity send
-			message.msgType = 1;
-			message.valueType = 0;
+			message.msgType = SENSOR_DATA;
+			message.valueType = TEMPERATURE;
 			message.data.iValue = DHTTemp;
 			rfsend(&message);
-			message.valueType = 1;
+			message.valueType = HUMIDITY;
 			message.data.iValue = DHTHum;
 			rfsend(&message);
 		}
 		gpio_pin_configure(DHTPIN, GPIO_PIN_CONFIG_OPTION_DIR_INPUT);
 #endif	//DHT
 
-#if SLEEP
+#if EN_SLEEP
 		gpio_pin_configure(WDGPIN, GPIO_PIN_CONFIG_OPTION_DIR_INPUT);
    		if (gpio_pin_val_read(WDGPIN)) {	// WDGPIN = 1
 
