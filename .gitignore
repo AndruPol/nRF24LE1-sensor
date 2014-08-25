@@ -1,2 +1,4 @@
 # Object files
 build/obj/*
+.project
+.cproject
