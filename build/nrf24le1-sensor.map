@@ -69,20 +69,20 @@ CABS                                00000000    00000000 =           0. bytes (A
 C:   00000022  l_GSINIT3                       
 C:   0000002A  l_GSINIT4                       
 C:   00000035  s_GSINIT4                       
-C:   0000004B  s_SSEG                          
+C:   00000056  s_SSEG                          
 C:   0000005F  s_GSFINAL                       
 C:   0000005F  s_GSINIT                        
 C:   0000005F  s_GSINIT5                       
 C:   00000062  s_CSEG                          
 C:   0000007D  l_DSEG                          
-C:   000000B5  l_SSEG                          
+C:   000000AA  l_SSEG                          
 C:   00000100  l_IRAM                          
 C:   000001FF  l_CONST                         
-C:   0000023E  l_XSEG                          
-C:   0000023F  s_XISEG                         
-C:   00002990  l_CSEG                          
-C:   000029F2  s_CONST                         
-C:   00002BF1  s_XINIT                         
+C:   00000276  l_XSEG                          
+C:   00000277  s_XISEG                         
+C:   00002F6E  l_CSEG                          
+C:   00002FD0  s_CONST                         
+C:   000031CF  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -93,7 +93,7 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000000  .__.ABS.                           _fsreturnval
+     00000000  .__.ABS.                           _fsget1arg
      00000080  _P0                                main
      00000080  _P0_SB_D0                          main
      00000081  _P0_SB_D1                          main
@@ -392,58 +392,82 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-SSEG                                0000004B    000000B5 =         181. bytes (REL,OVR)
+SSEG                                00000056    000000AA =         170. bytes (REL,OVR)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000004B  __start__stack                     main
+     00000056  __start__stack                     main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 13.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XSEG                                00000001    0000023E =         574. bytes (REL,CON,XDATA)
+XSEG                                00000001    00000276 =         630. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
 D:   00000007  _gpio_pin_configure_PARM_2         main
 D:   0000000D  _interrupt_configure_ifp_PARM_2    main
-D:   00000014  _rf_read_rx_payload_PARM_2         main
-D:   00000019  _rf_configure_debug_lite_PARM_2    main
-D:   0000001C  _rf_write_register_PARM_2          main
-D:   0000001F  _rf_write_register_PARM_3          main
-D:   00000022  _rf_write_tx_payload_PARM_2        main
-D:   00000024  _rf_write_tx_payload_PARM_3        main
-D:   0000002C  _rf_spi_execute_command_PARM_2     main
-D:   0000002F  _rf_spi_execute_command_PARM_3     main
-D:   00000031  _rf_spi_execute_command_PARM_4     main
-D:   00000034  _rf_spi_send_read_PARM_2           main
-D:   00000036  _rf_spi_send_read_PARM_3           main
-D:   0000003A  _rf_power_up_param_PARM_2          main
-D:   0000003C  _rf_read_register_PARM_2           main
-D:   0000003F  _rf_read_register_PARM_3           main
-D:   00000043  _rf_set_rx_addr_PARM_2             main
-D:   00000045  _rf_set_rx_addr_PARM_3             main
-D:   00000068  _aes_add_round_key_PARM_2          main
-D:   00000073  _aes_key_expansion_PARM_2          main
-D:   0000007D  _aes_initialize_PARM_2             main
-D:   0000007E  _aes_initialize_PARM_3             main
-D:   00000081  _aes_initialize_PARM_4             main
-D:   00000087  _aes_data                          main
-D:   000001C8  _aes_encrypt_ecb_PARM_2            main
-D:   000001CB  _aes_encrypt_ecb_PARM_3            main
-D:   000001D2  _dhtread_PARM_2                    main
-D:   000001FC  _rfread_PARM_2                     main
-D:   0000021A  __divulong_PARM_2                  _divulong
-D:   00000226  _memcpy_PARM_2                     _memcpy
-D:   00000229  _memcpy_PARM_3                     _memcpy
-D:   0000022E  __gptrput_PARM_2                   _gptrput
-D:   0000022F  __mulint_PARM_2                    _mulint
-D:   00000231  __mullong_PARM_2                   _mullong
-D:   00000235  __divsint_PARM_2                   _divsint
-D:   00000239  __divuint_PARM_2                   _divuint
+D:   0000000F  _w2_configure_PARM_2               main
+D:   00000012  _w2_master_cur_address_read_PARM   main
+D:   00000015  _w2_master_cur_address_read_PARM   main
+D:   0000001D  _w2_master_random_address_read_P   main
+D:   00000020  _w2_master_random_address_read_P   main
+D:   00000021  _w2_master_random_address_read_P   main
+D:   00000024  _w2_master_random_address_read_P   main
+D:   00000029  _w2_master_rx_byte_PARM_2          main
+D:   0000002E  _w2_master_tx_byte_PARM_2          main
+D:   00000030  _w2_master_write_control_bytes_P   main
+D:   00000033  _w2_master_write_control_bytes_P   main
+D:   00000035  _w2_master_write_to_PARM_2         main
+D:   00000038  _w2_master_write_to_PARM_3         main
+D:   00000039  _w2_master_write_to_PARM_4         main
+D:   0000003C  _w2_master_write_to_PARM_5         main
+D:   00000043  _rf_read_rx_payload_PARM_2         main
+D:   00000048  _rf_configure_debug_lite_PARM_2    main
+D:   0000004B  _rf_write_register_PARM_2          main
+D:   0000004E  _rf_write_register_PARM_3          main
+D:   00000051  _rf_write_tx_payload_PARM_2        main
+D:   00000053  _rf_write_tx_payload_PARM_3        main
+D:   0000005B  _rf_spi_execute_command_PARM_2     main
+D:   0000005E  _rf_spi_execute_command_PARM_3     main
+D:   00000060  _rf_spi_execute_command_PARM_4     main
+D:   00000063  _rf_spi_send_read_PARM_2           main
+D:   00000065  _rf_spi_send_read_PARM_3           main
+D:   00000069  _rf_power_up_param_PARM_2          main
+D:   0000006B  _rf_read_register_PARM_2           main
+D:   0000006E  _rf_read_register_PARM_3           main
+D:   00000072  _rf_set_rx_addr_PARM_2             main
+D:   00000074  _rf_set_rx_addr_PARM_3             main
+D:   00000097  _aes_add_round_key_PARM_2          main
+D:   000000A2  _aes_key_expansion_PARM_2          main
+D:   000000AC  _aes_initialize_PARM_2             main
+D:   000000AD  _aes_initialize_PARM_3             main
+D:   000000B0  _aes_initialize_PARM_4             main
+D:   000000B6  _aes_data                          main
+D:   000001F7  _aes_encrypt_ecb_PARM_2            main
+D:   000001FA  _aes_encrypt_ecb_PARM_3            main
+D:   00000201  _dhtread_PARM_2                    main
+D:   00000232  _rfread_PARM_2                     main
+D:   00000252  __divulong_PARM_2                  _divulong
+D:   0000025E  _memcpy_PARM_2                     _memcpy
+D:   00000261  _memcpy_PARM_3                     _memcpy
+D:   00000266  __gptrput_PARM_2                   _gptrput
+D:   00000267  __mulint_PARM_2                    _mulint
+D:   00000269  __mullong_PARM_2                   _mullong
+D:   0000026D  __divsint_PARM_2                   _divsint
 ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+XSEG                                00000001    00000276 =         630. bytes (REL,CON,XDATA)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+D:   00000271  __divuint_PARM_2                   _divuint
+ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -454,7 +478,7 @@ HOME                                00000000    00000006 =           6. bytes (R
       -----  --------------------------------   ------------------------
 C:   00000003  __sdcc_program_startup             main
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 16.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -465,7 +489,7 @@ GSINIT0                             00000006    00000003 =           3. bytes (R
       -----  --------------------------------   ------------------------
 C:   00000006  __sdcc_gsinit_startup              
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 16.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -474,7 +498,7 @@ GSINIT2                             00000009    0000000A =          10. bytes (R
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -485,7 +509,7 @@ GSINIT3                             00000013    00000022 =          34. bytes (R
       -----  --------------------------------   ------------------------
 C:   00000013  __mcs51_genXINIT                   
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -497,7 +521,7 @@ GSINIT4                             00000035    0000002A =          42. bytes (R
 C:   00000035  __mcs51_genRAMCLEAR                
 C:   0000003B  __mcs51_genXRAMCLEAR               
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -506,12 +530,12 @@ GSFINAL                             0000005F    00000003 =           3. bytes (R
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00000062    00002990 =       10640. bytes (REL,CON,CODE)
+CSEG                                00000062    00002F6E =       12142. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -523,101 +547,115 @@ C:   00000317  _gpio_pin_val_clear                main
 C:   00000383  _gpio_pin_val_set                  main
 C:   000003EB  _gpio_pin_val_read                 main
 C:   0000047F  _interrupt_configure_ifp           main
-C:   000004F1  _adc_configure                     main
-C:   00000511  _adc_set_input_channel             main
-C:   0000052E  _adc_start_single_conversion       main
-C:   00000542  _adc_start_single_conversion_get   main
-C:   0000055F  _rf_read_rx_payload                main
-C:   000005B4  _rf_configure_debug_lite           main
-C:   00000619  _rf_write_register                 main
-C:   00000657  _rf_spi_configure_enable           main
-C:   0000065E  _rf_write_tx_payload               main
-C:   000006B3  _rf_transmit                       main
-C:   000006C4  _rf_set_as_rx                      main
-C:   00000722  _rf_irq_clear_all                  main
-C:   00000746  _rf_set_as_tx                      main
-C:   0000078E  _rf_spi_execute_command            main
-C:   000007EA  _rf_spi_send_read                  main
-C:   0000087D  _rf_power_up_param                 main
-C:   000008CA  _rf_read_register                  main
-C:   00000906  _rf_spi_send_read_byte             main
-C:   0000091A  _rf_set_rx_addr                    main
-C:   00000963  _rf_power_down                     main
-C:   000009AB  _rf_power_up                       main
-C:   00000A1A  _rf_tx_fifo_is_full                main
-C:   00000A46  _radiobegin                        main
-C:   00000AED  _setChannel                        main
-C:   00000B0E  _setDataRate                       main
-C:   00000B72  _setAutoAck                        main
-C:   00000BA5  _setCRCLength                      main
-C:   00000C09  _setPALevel                        main
-C:   00000C48  _openAllPipe                       main
-C:   00000CEA  _watchdog_set_wdsv_count           main
-C:   00000D02  _watchdog_start_and_set_timeout_   main
-C:   00000DBB  _pwr_clk_mgmt_clklf_configure      main
-C:   00000DD0  _enc_dec_accel_galois_multiply     main
-C:   00000DE3  _aes_get_sbox                      main
-C:   00000DF1  _aes_add_round_key                 main
-C:   00000EA6  _aes_sub_word                      main
-C:   00000F8A  _aes_rot_word                      main
-C:   00001012  _aes_get_rcon                      main
-C:   00001029  _aes_key_expansion                 main
-C:   00001414  _aes_initialize                    main
-C:   00001569  _aes_sub_bytes                     main
-C:   00001614  _aes_mix_columns                   main
-ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
-Hexadecimal  [32-Bits]
-
-Area                                    Addr        Size        Decimal Bytes (Attributes)
---------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00000062    00002990 =       10640. bytes (REL,CON,CODE)
-
-      Value  Global                              Global Defined In Module
-      -----  --------------------------------   ------------------------
-C:   000017EF  _aes_shift_rows                    main
-C:   00001994  _aes_encrypt_ecb                   main
-C:   00001BB1  _waitpin                           main
-C:   00001BD8  _dhtread                           main
-C:   00001E39  _OneWireReset                      main
-C:   00001E78  _OneWireOutByte                    main
-C:   00001EE4  _OneWireInByte                     main
-C:   00001F43  _dsread                            main
-C:   000020D6  _rfsend                            main
-C:   00002242  _rfread                            main
-C:   000022E1  _main                              main
-C:   000024F4  __divulong                         _divulong
-C:   000025FF  _memcpy                            _memcpy
-C:   00002673  __gptrput                          _gptrput
-C:   0000268E  __mulint                           _mulint
-C:   000026AE  __mullong                          _mullong
-C:   000026AE  __mullong_dummy                    _mullong
-C:   0000271A  __divsint                          _divsint
-C:   0000278B  __divuint                          _divuint
-C:   00002825  ___sint2fs                         _sint2fs
-C:   00002832  ___fsdiv                           _fsdiv
-C:   000028F5  __gptrget                          _gptrget
-C:   00002911  ___slong2fs                        _slong2fs
-C:   0000291A  slong2fs_doit                      _slong2fs
-C:   0000293E  fsgetargs                          _fsget2args
-C:   0000296C  fs_normalize_a                     _fsnormalize
-C:   0000299F  __sdcc_external_startup            _startup
-C:   000029A3  fs_round_and_return                _fsreturnval
-C:   000029BB  fs_zerocheck_return                _fsreturnval
-C:   000029C4  fs_return_zero                     _fsreturnval
-C:   000029CC  fs_direct_return                   _fsreturnval
-C:   000029DA  fs_return_inf                      _fsreturnval
-C:   000029E7  fs_return_nan                      _fsreturnval
-
+C:   000004F1  _w2_configure                      main
+C:   00000535  _w2_master_cur_address_read        main
+C:   00000648  _w2_master_process_start_request   main
+C:   0000065D  _w2_master_process_stop_request    main
+C:   00000671  _w2_master_random_address_read     main
+C:   000006E2  _w2_master_rx_byte                 main
+C:   0000072D  _w2_master_software_reset          main
+C:   00000784  _w2_master_tx_byte                 main
+C:   000007B4  _w2_master_write_control_bytes     main
+C:   00000832  _w2_master_write_to                main
+C:   00000956  _w2_wait_for_byte_tx_or_rx         main
+C:   00000969  _rf_read_rx_payload                main
+C:   000009BE  _rf_configure_debug_lite           main
+C:   00000A23  _rf_write_register                 main
+C:   00000A61  _rf_spi_configure_enable           main
+C:   00000A68  _rf_write_tx_payload               main
+C:   00000ABD  _rf_transmit                       main
+C:   00000ACE  _rf_set_as_rx                      main
+C:   00000B2C  _rf_irq_clear_all                  main
+C:   00000B50  _rf_set_as_tx                      main
+C:   00000B98  _rf_spi_execute_command            main
+C:   00000BF4  _rf_spi_send_read                  main
+C:   00000C87  _rf_power_up_param                 main
+C:   00000CD4  _rf_read_register                  main
+C:   00000D10  _rf_spi_send_read_byte             main
+C:   00000D24  _rf_set_rx_addr                    main
+C:   00000D6D  _rf_power_down                     main
+C:   00000DB5  _rf_power_up                       main
+C:   00000E24  _rf_tx_fifo_is_full                main
+C:   00000E50  _radiobegin                        main
+C:   00000EF7  _setChannel                        main
+C:   00000F18  _setDataRate                       main
+C:   00000F7C  _setAutoAck                        main
+C:   00000FAF  _setCRCLength                      main
+C:   00001013  _setPALevel                        main
+C:   00001052  _openAllPipe                       main
+C:   000010F4  _watchdog_set_wdsv_count           main
+C:   0000110C  _watchdog_start_and_set_timeout_   main
+C:   000011C5  _pwr_clk_mgmt_clklf_configure      main
+C:   000011DA  _enc_dec_accel_galois_multiply     main
+C:   000011ED  _aes_get_sbox                      main
+C:   000011FB  _aes_add_round_key                 main
 ASxxxx Linker V03.00 + NoICE + sdld,  page 22.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               000029F2    000001FF =         511. bytes (REL,CON,CODE)
+CSEG                                00000062    00002F6E =       12142. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+C:   000012B0  _aes_sub_word                      main
+C:   00001394  _aes_rot_word                      main
+C:   0000141C  _aes_get_rcon                      main
+C:   00001433  _aes_key_expansion                 main
+C:   0000181E  _aes_initialize                    main
+C:   00001973  _aes_sub_bytes                     main
+C:   00001A1E  _aes_mix_columns                   main
+C:   00001BF9  _aes_shift_rows                    main
+C:   00001D9E  _aes_encrypt_ecb                   main
+C:   00001FBB  _waitpin                           main
+C:   00001FE2  _dhtread                           main
+C:   00002249  _OneWireReset                      main
+C:   00002288  _OneWireOutByte                    main
+C:   000022F4  _OneWireInByte                     main
+C:   00002353  _dsread                            main
+C:   000024E6  _bh1750init                        main
+C:   000024F1  _bh1750read                        main
+C:   0000262B  _rfsend                            main
+C:   00002797  _rfread                            main
+C:   00002836  _main                              main
+C:   00002A4B  __divulong                         _divulong
+C:   00002B56  _memcpy                            _memcpy
+C:   00002BCA  __gptrput                          _gptrput
+C:   00002BE5  __mulint                           _mulint
+C:   00002C05  __mullong                          _mullong
+C:   00002C05  __mullong_dummy                    _mullong
+C:   00002C71  __divsint                          _divsint
+C:   00002CE2  __divuint                          _divuint
+C:   00002D7C  ___sint2fs                         _sint2fs
+C:   00002D89  ___fs2uint                         _fs2uint
+C:   00002D94  ___fsdiv                           _fsdiv
+C:   00002E57  __gptrget                          _gptrget
+C:   00002E73  ___slong2fs                        _slong2fs
+C:   00002E7C  slong2fs_doit                      _slong2fs
+C:   00002EA0  fsgetargs                          _fsget2args
+C:   00002ECE  fs_normalize_a                     _fsnormalize
+C:   00002F01  __sdcc_external_startup            _startup
+C:   00002F05  ___fs2ulong                        _fs2ulong
+C:   00002F07  fs2ulong_begin                     _fs2ulong
+C:   00002F2C  fs_round_and_return                _fsreturnval
+C:   00002F44  fs_zerocheck_return                _fsreturnval
+C:   00002F4D  fs_return_zero                     _fsreturnval
+C:   00002F55  fs_direct_return                   _fsreturnval
+C:   00002F63  fs_return_inf                      _fsreturnval
+C:   00002F70  fs_return_nan                      _fsreturnval
+C:   00002F7B  fs_rshift_a                        _fsrshift
+C:   00002FBE  fsgetarg                           _fsget1arg
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 23.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+CONST                               00002FD0    000001FF =         511. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 24.
 
 Files Linked                              [ module(s) ]
 
@@ -649,6 +687,8 @@ Libraries Linked                          [ object file ]
 /opt/sdcc/bin/../share/sdcc/lib/large/libfloat.lib
                                           [ _sint2fs.rel ]
 /opt/sdcc/bin/../share/sdcc/lib/large/libfloat.lib
+                                          [ _fs2uint.rel ]
+/opt/sdcc/bin/../share/sdcc/lib/large/libfloat.lib
                                           [ _fsdiv.rel ]
 /opt/sdcc/bin/../share/sdcc/lib/large/mcs51.lib
                                           [ crtstart.rel ]
@@ -663,9 +703,15 @@ Libraries Linked                          [ object file ]
 /opt/sdcc/bin/../share/sdcc/lib/large/libsdcc.lib
                                           [ _startup.rel ]
 /opt/sdcc/bin/../share/sdcc/lib/large/libfloat.lib
+                                          [ _fs2ulong.rel ]
+/opt/sdcc/bin/../share/sdcc/lib/large/libfloat.lib
                                           [ _fsreturnval.rel ]
+/opt/sdcc/bin/../share/sdcc/lib/large/libfloat.lib
+                                          [ _fsrshift.rel ]
+/opt/sdcc/bin/../share/sdcc/lib/large/libfloat.lib
+                                          [ _fsget1arg.rel ]
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 24.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 25.
 
 User Base Address Definitions
 

@@ -4,8 +4,8 @@ Internal RAM layout:
 0x10:|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q|Q| | | |
 0x20:|B|a|a|a|a|a|a|a|a|a|a|a|a|a|a|a|
 0x30:|a|a|a|a|a|a|a|a|a|a|a|a|a|a|a|a|
-0x40:|a|a|a|a|a|a|a|a|a|a|a|S|S|S|S|S|
-0x50:|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|
+0x40:|a|a|a|a|a|a|a|a|a|a|a|a|a|a|a|a|
+0x50:|a|a|a|a|a|a|S|S|S|S|S|S|S|S|S|S|
 0x60:|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|
 0x70:|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|
 0x80:|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|
@@ -18,11 +18,11 @@ Internal RAM layout:
 0xf0:|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|S|
 0-3:Reg Banks, T:Bit regs, a-z:Data, B:Bits, Q:Overlay, I:iData, S:Stack, A:Absolute
 
-Stack starts at: 0x4b (sp set to 0x4a) with 181 bytes available.
+Stack starts at: 0x56 (sp set to 0x55) with 170 bytes available.
 
 Other memory:
    Name             Start    End      Size     Max     
    ---------------- -------- -------- -------- --------
    PAGED EXT. RAM                         0      256   
-   EXTERNAL RAM     0x0001   0x023e     574    65536   
-   ROM/EPROM/FLASH  0x0000   0x2bf0   11249    65536   
+   EXTERNAL RAM     0x0001   0x0276     630    65536   
+   ROM/EPROM/FLASH  0x0000   0x31ce   12751    65536   

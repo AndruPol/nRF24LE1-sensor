@@ -8,7 +8,8 @@
 #define EN_RF			1	// radio enable
 #define EN_DHT			1	// DHT21/22 enable
 #define EN_DS			1	// DS18B20 enable
-#define EN_ADC			1	// ADC based light sensor enable
+#define EN_ADC			0	// ADC based light sensor enable
+#define EN_BH1750		1	// BH1750 enable
 #define EN_SLEEP		1	// power save mode enable
 #define EN_AES_ENC		1	// use aes encryption
 #define EN_AES_DEC		0	// use aes decryption
@@ -24,6 +25,8 @@
 #define DHTPIN	GPIO_PIN_ID_P1_4		// P1.4 - номер пина DHT21/22
 #define DSPIN	GPIO_PIN_ID_P1_3		// P1.3 - номер пина DS18B20
 #define LIGHTCH	ADC_CHANNEL_AIN0		// P0.0 - номер пина датчика освещенности
+#define W2SCL	GPIO_PIN_ID_P0_4		// P0.4 - номер пина BH1750 2-wire SCL
+#define W2SDA	GPIO_PIN_ID_P0_5		// P0.5 - номер пина BH1750 2-wire SDA
 #define WDGPIN	GPIO_PIN_ID_P1_5		// P1.5 - номер пина sleep enable switch
 
 typedef struct CONFIG CONFIG_T;
@@ -31,7 +34,7 @@ struct CONFIG{
 	uint8_t sensorID;	// this sensor module ID
 	uint8_t channel;	// radio channel: 0-199
 	uint8_t datarate;	// data rate: 1-3
-	uint8_t autoask;	// auto ask future
+	uint8_t autoask;	// auto ask
 	uint8_t srvaddr[5];	// server address to send
 	uint8_t maxsend;	// max message send retries
 	uint16_t sleeptm;	// wakepup by watchdog timeout, s ~8.5min max (0x1-0x1FF LSB first)
@@ -101,6 +104,21 @@ struct MESSAGE{
 #include "../SDK/src/adc/src/adc_set_input_channel.c"
 #include "../SDK/src/adc/src/adc_start_single_conversion.c"
 #include "../SDK/src/adc/src/adc_start_single_conversion_get_value.c"
+#endif
+
+#if EN_BH1750
+//#include "../SDK/src/w2/src/w2_src.h"
+#include "../SDK/src/w2/src/w2_configure.c"
+#include "../SDK/src/w2/src/w2_master_cur_address_read.c"
+#include "../SDK/src/w2/src/w2_master_process_start_request.c"
+#include "../SDK/src/w2/src/w2_master_process_stop_request.c"
+#include "../SDK/src/w2/src/w2_master_random_address_read.c"
+#include "../SDK/src/w2/src/w2_master_rx_byte.c"
+#include "../SDK/src/w2/src/w2_master_software_reset.c"
+#include "../SDK/src/w2/src/w2_master_tx_byte.c"
+#include "../SDK/src/w2/src/w2_master_write_control_bytes.c"
+#include "../SDK/src/w2/src/w2_master_write_to.c"
+#include "../SDK/src/w2/src/w2_wait_for_byte_tx_or_rx.c"
 #endif
 
 #if EN_RF
@@ -196,9 +214,13 @@ dhterror_t dhtread(int *temp, int *hum) {
 	//pin as output and set 0
 	gpio_pin_configure(DHTPIN, GPIO_PIN_CONFIG_OPTION_DIR_OUTPUT | GPIO_PIN_CONFIG_OPTION_OUTPUT_VAL_CLEAR);
 
-	delay_ms(18);	// reset 1-20ms
+	delay_ms(2);	// reset 1-18ms
 
 	gpio_pin_val_set(DHTPIN);
+
+	delay_us(20);
+
+	interrupt_control_global_disable();
 
 	//pin as input
 	gpio_pin_configure(DHTPIN, GPIO_PIN_CONFIG_OPTION_DIR_INPUT);
@@ -211,7 +233,6 @@ dhterror_t dhtread(int *temp, int *hum) {
 		return DHT_NO_RESPONSE;
 	}
 	//===============receive 40 data bits
-	interrupt_control_global_disable();
 	if (!waitpin(0)) {
 		return DHT_NO_RESPONSE;
 	}
@@ -383,6 +404,47 @@ dserror_t dsread(float *temp) {
 }
 #endif //DS
 
+// BH1750 библиотеки
+#if EN_BH1750
+#define BH1750_ADDR 		0x23 // device address
+#define BH1750_PWR_DOWN		0x0	 // No active state.
+#define BH1750_CONT_HMODE	0x10 // Continuously H-Resolution Mode
+#define BH1750_DELAY		200	 // wait results (datasheet says max. 180ms)
+#define W2CONFIG			(W2_CONFIG_OPTION_ENABLE | W2_CONFIG_OPTION_MODE_MASTER | W2_CONFIG_OPTION_CLOCK_FREQ_100_KHZ | W2_CONFIG_OPTION_ALL_INTERRUPTS_ENABLE)
+//0x0007	// 2-wire configuration
+
+typedef enum {
+	BH1750_NO_ERROR,
+	BH1750_ERROR,
+	BH1750_TIMEOUT,
+} bh1750error_t;
+
+void bh1750init(void) {
+	w2_configure(W2CONFIG, 0);
+}
+
+bh1750error_t bh1750read(uint16_t *light) {
+	uint8_t addr, txbuf=0, rxbuf[2]={0};
+
+	addr = BH1750_CONT_HMODE;
+	if (w2_master_write_to(BH1750_ADDR, &addr, 1, &txbuf, 0) == W2_NACK_VAL)
+		return BH1750_TIMEOUT;
+
+	delay_ms(BH1750_DELAY);
+
+	if (w2_master_cur_address_read(BH1750_ADDR, rxbuf, 2) == W2_NACK_VAL)
+		return BH1750_ERROR;
+
+	addr = BH1750_PWR_DOWN;
+	w2_master_write_to(BH1750_ADDR, &addr, 1, &txbuf, 0);
+
+	*light = ((rxbuf[0] << 8) + rxbuf[1])/1.2;
+
+	return BH1750_NO_ERROR;
+}
+#endif
+
+// RF библиотеки
 #if EN_RF
 void rfsend(const MESSAGE_T *msg) {
 	uint16_t timeout; uint8_t retry = config.maxsend;
@@ -476,6 +538,10 @@ void main(void) {
     float DSTemp;
 #endif
 
+#if EN_BH1750
+    uint16_t light;
+#endif
+
 	MESSAGE_T message;
 	message.sensorID = config.sensorID;
 
@@ -486,6 +552,10 @@ void main(void) {
 #endif
 
 	delay_ms(20);
+
+#if EN_BH1750
+    bh1750init();
+#endif
 
 #if EN_RF
  	radiobegin();					// init RF
@@ -526,6 +596,17 @@ void main(void) {
 		message.sensorType = ADC;
 		message.valueType = LIGHT;
 		message.data.iValue = Light;
+		rfsend(&message);
+#endif
+
+#if EN_BH1750
+		message.msgType = SENSOR_ERROR;
+		message.sensorType = BH1750;
+		message.valueType = LIGHT;
+		if (bh1750read(&light) == BH1750_NO_ERROR) {
+			message.msgType = SENSOR_DATA;
+			message.data.iValue = (uint32_t)light;
+		}
 		rfsend(&message);
 #endif
 
@@ -577,6 +658,6 @@ void main(void) {
    			pwr_clk_mgmt_enter_pwr_mode_register_ret(); // 450 mkA
    		}
 #endif
-   		delay_ms(2000); //пауза
+   		delay_ms(30000); //пауза
 	} // main loop
 }
