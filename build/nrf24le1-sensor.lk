@@ -7,14 +7,26 @@
 -b PSEG = 0x0001
 -b ISEG = 0x0000
 -b BSEG = 0x0000
--k build/obj
--k /opt/sdcc/bin/../share/sdcc/lib/large
 -k /usr/local/share/sdcc/lib/large
+-k sdk/_target_sdcc_nrf24le1_32/lib
+-k aes/lib
+-k /usr/local/bin/../share/sdcc/lib/large
+-k /usr/local/share/sdcc/lib/large
+-l mcs51
+-l libsdcc
+-l libsdcc.lib
+-l nrf24le1
+-l aes
 -l mcs51
 -l libsdcc
 -l libint
 -l liblong
 -l libfloat
-build/obj/main.rel
+build/nrf24le1-sensor.rel
+build/obj/ds18b20.rel
+build/obj/crc8.rel
+build/obj/radio.rel
+build/obj/bh1750.rel
+build/obj/dht.rel
 
 -e

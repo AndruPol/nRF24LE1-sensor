@@ -45,18 +45,18 @@ C:   00000003  l_GSINIT0
 C:   00000006  l_HOME                          
 C:   00000006  s_GSINIT0                       
 C:   00000008  l_REG_BANK_0                    
-C:   00000008  s_OSEG                          
 C:   00000008  s_REG_BANK_1                    
 C:   00000009  s_GSINIT1                       
 C:   00000009  s_GSINIT2                       
 C:   0000000A  l_GSINIT2                       
+C:   0000000B  l_OSEG                          
 C:   00000010  s_REG_BANK_2                    
 C:   00000013  s_GSINIT3                       
-C:   00000015  l_OSEG                          
 C:   00000018  s_BIT_BANK                      
 C:   00000018  s_REG_BANK_3                    
 C:   00000020  s_BSEG_BYTES                    
 C:   00000020  s__CODE                         
+C:   00000022  l_GSINIT3                       
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
@@ -66,23 +66,23 @@ CABS                                00000000    00000000 =           0. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000022  l_GSINIT3                       
 C:   0000002A  l_GSINIT4                       
 C:   00000035  s_GSINIT4                       
-C:   00000056  s_SSEG                          
 C:   0000005F  s_GSFINAL                       
 C:   0000005F  s_GSINIT                        
 C:   0000005F  s_GSINIT5                       
 C:   00000062  s_CSEG                          
-C:   0000007D  l_DSEG                          
-C:   000000AA  l_SSEG                          
+C:   00000074  s_OSEG                          
+C:   0000007F  l_DSEG                          
+C:   0000007F  s_SSEG                          
+C:   00000081  l_SSEG                          
 C:   00000100  l_IRAM                          
-C:   000001FF  l_CONST                         
-C:   00000276  l_XSEG                          
-C:   00000277  s_XISEG                         
-C:   00002F6E  l_CSEG                          
-C:   00002FD0  s_CONST                         
-C:   000031CF  s_XINIT                         
+C:   000002B5  l_XSEG                          
+C:   000002B6  s_XISEG                         
+C:   000002FF  l_CONST                         
+C:   00003A02  l_CSEG                          
+C:   00003A64  s_CONST                         
+C:   00003D63  s_XINIT                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
@@ -94,55 +94,55 @@ Area                                    Addr        Size        Decimal Bytes (A
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00000000  .__.ABS.                           _fsget1arg
-     00000080  _P0                                main
-     00000080  _P0_SB_D0                          main
-     00000081  _P0_SB_D1                          main
-     00000081  _SP                                main
-     00000082  _DPL                               main
-     00000082  _P0_SB_D2                          main
-     00000083  _DPH                               main
-     00000083  _P0_SB_D3                          main
-     00000084  _DPL1                              main
-     00000084  _P0_SB_D4                          main
-     00000085  _DPH1                              main
-     00000085  _P0_SB_D5                          main
-     00000086  _P0_SB_D6                          main
-     00000087  _P0_SB_D7                          main
-     00000087  _PCON                              main
-     00000088  _TCON                              main
-     00000088  _TCON_SB_IT0                       main
-     00000089  _TCON_SB_IE0                       main
-     00000089  _TMOD                              main
-     0000008A  _TCON_SB_IT1                       main
-     0000008A  _TL0                               main
-     0000008B  _TCON_SB_IE1                       main
-     0000008B  _TL1                               main
-     0000008C  _TCON_SB_TR0                       main
-     0000008C  _TH0                               main
-     0000008D  _TCON_SB_TF0                       main
-     0000008D  _TH1                               main
-     0000008E  _TCON_SB_TR1                       main
-     0000008F  _P3CON                             main
-     0000008F  _TCON_SB_TF1                       main
-     00000090  _P1                                main
-     00000090  _P1_SB_D0                          main
-     00000091  _P1_SB_D1                          main
-     00000092  _DPS                               main
-     00000092  _P1_SB_D2                          main
-     00000093  _P0DIR                             main
-     00000093  _P1_SB_D3                          main
-     00000094  _P1DIR                             main
-     00000094  _P1_SB_D4                          main
-     00000095  _P1_SB_D5                          main
-     00000095  _P2DIR                             main
-     00000096  _P1_SB_D6                          main
-     00000096  _P3DIR                             main
-     00000097  _P1_SB_D7                          main
-     00000097  _P2CON                             main
-     00000098  _S0CON                             main
-     00000098  _S0CON_SB_RI0                      main
-     00000099  _S0BUF                             main
-     00000099  _S0CON_SB_TI0                      main
+     00000080  _P0                                adc_set_input_channel
+     00000080  _P0_SB_D0                          adc_set_input_channel
+     00000081  _P0_SB_D1                          adc_set_input_channel
+     00000081  _SP                                adc_set_input_channel
+     00000082  _DPL                               adc_set_input_channel
+     00000082  _P0_SB_D2                          adc_set_input_channel
+     00000083  _DPH                               adc_set_input_channel
+     00000083  _P0_SB_D3                          adc_set_input_channel
+     00000084  _DPL1                              adc_set_input_channel
+     00000084  _P0_SB_D4                          adc_set_input_channel
+     00000085  _DPH1                              adc_set_input_channel
+     00000085  _P0_SB_D5                          adc_set_input_channel
+     00000086  _P0_SB_D6                          adc_set_input_channel
+     00000087  _P0_SB_D7                          adc_set_input_channel
+     00000087  _PCON                              adc_set_input_channel
+     00000088  _TCON                              adc_set_input_channel
+     00000088  _TCON_SB_IT0                       adc_set_input_channel
+     00000089  _TCON_SB_IE0                       adc_set_input_channel
+     00000089  _TMOD                              adc_set_input_channel
+     0000008A  _TCON_SB_IT1                       adc_set_input_channel
+     0000008A  _TL0                               adc_set_input_channel
+     0000008B  _TCON_SB_IE1                       adc_set_input_channel
+     0000008B  _TL1                               adc_set_input_channel
+     0000008C  _TCON_SB_TR0                       adc_set_input_channel
+     0000008C  _TH0                               adc_set_input_channel
+     0000008D  _TCON_SB_TF0                       adc_set_input_channel
+     0000008D  _TH1                               adc_set_input_channel
+     0000008E  _TCON_SB_TR1                       adc_set_input_channel
+     0000008F  _P3CON                             adc_set_input_channel
+     0000008F  _TCON_SB_TF1                       adc_set_input_channel
+     00000090  _P1                                adc_set_input_channel
+     00000090  _P1_SB_D0                          adc_set_input_channel
+     00000091  _P1_SB_D1                          adc_set_input_channel
+     00000092  _DPS                               adc_set_input_channel
+     00000092  _P1_SB_D2                          adc_set_input_channel
+     00000093  _P0DIR                             adc_set_input_channel
+     00000093  _P1_SB_D3                          adc_set_input_channel
+     00000094  _P1DIR                             adc_set_input_channel
+     00000094  _P1_SB_D4                          adc_set_input_channel
+     00000095  _P1_SB_D5                          adc_set_input_channel
+     00000095  _P2DIR                             adc_set_input_channel
+     00000096  _P1_SB_D6                          adc_set_input_channel
+     00000096  _P3DIR                             adc_set_input_channel
+     00000097  _P1_SB_D7                          adc_set_input_channel
+     00000097  _P2CON                             adc_set_input_channel
+     00000098  _S0CON                             adc_set_input_channel
+     00000098  _S0CON_SB_RI0                      adc_set_input_channel
+     00000099  _S0BUF                             adc_set_input_channel
+     00000099  _S0CON_SB_TI0                      adc_set_input_channel
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
@@ -152,57 +152,57 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000009A  _S0CON_SB_RB80                     main
-     0000009B  _S0CON_SB_TB80                     main
-     0000009C  _S0CON_SB_REN0                     main
-     0000009D  _S0CON_SB_SM20                     main
-     0000009E  _P0CON                             main
-     0000009E  _S0CON_SB_SM1                      main
-     0000009F  _P1CON                             main
-     0000009F  _S0CON_SB_SM0                      main
-     000000A0  _P2                                main
-     000000A0  _P2_SB_D0                          main
-     000000A1  _P2_SB_D1                          main
-     000000A1  _PWMDC0                            main
-     000000A2  _P2_SB_D2                          main
-     000000A2  _PWMDC1                            main
-     000000A3  _CLKCTRL                           main
-     000000A3  _P2_SB_D3                          main
-     000000A4  _P2_SB_D4                          main
-     000000A4  _PWRDWN                            main
-     000000A5  _P2_SB_D5                          main
-     000000A5  _WUCON                             main
-     000000A6  _INTEXP                            main
-     000000A6  _P2_SB_D6                          main
-     000000A7  _MEMCON                            main
-     000000A7  _P2_SB_D7                          main
-     000000A8  _IEN0                              main
-     000000A8  _IEN0_SB_IFP                       main
-     000000A9  _IEN0_SB_T0                        main
-     000000A9  _IP0                               main
-     000000AA  _IEN0_SB_POFIRQ                    main
-     000000AA  _S0RELL                            main
-     000000AB  _IEN0_SB_T1                        main
-     000000AB  _RTC2CPT01                         main
-     000000AC  _IEN0_SB_UART                      main
-     000000AC  _RTC2CPT10                         main
-     000000AD  _CLKLFCTRL                         main
-     000000AD  _IEN0_SB_T2                        main
-     000000AE  _OPMCON                            main
-     000000AF  _IEN0_SB_GLOBAL                    main
-     000000AF  _WDSV                              main
-     000000B0  _P3                                main
-     000000B0  _P3_SB_D0                          main
-     000000B1  _P3_SB_D1                          main
-     000000B1  _RSTREAS                           main
-     000000B2  _P3_SB_D2                          main
-     000000B2  _PWMCON                            main
-     000000B3  _P3_SB_D3                          main
-     000000B3  _RTC2CON                           main
-     000000B4  _P3_SB_D4                          main
-     000000B4  _RTC2CMP0                          main
-     000000B5  _P3_SB_D5                          main
-     000000B5  _RTC2CMP1                          main
+     0000009A  _S0CON_SB_RB80                     adc_set_input_channel
+     0000009B  _S0CON_SB_TB80                     adc_set_input_channel
+     0000009C  _S0CON_SB_REN0                     adc_set_input_channel
+     0000009D  _S0CON_SB_SM20                     adc_set_input_channel
+     0000009E  _P0CON                             adc_set_input_channel
+     0000009E  _S0CON_SB_SM1                      adc_set_input_channel
+     0000009F  _P1CON                             adc_set_input_channel
+     0000009F  _S0CON_SB_SM0                      adc_set_input_channel
+     000000A0  _P2                                adc_set_input_channel
+     000000A0  _P2_SB_D0                          adc_set_input_channel
+     000000A1  _P2_SB_D1                          adc_set_input_channel
+     000000A1  _PWMDC0                            adc_set_input_channel
+     000000A2  _P2_SB_D2                          adc_set_input_channel
+     000000A2  _PWMDC1                            adc_set_input_channel
+     000000A3  _CLKCTRL                           adc_set_input_channel
+     000000A3  _P2_SB_D3                          adc_set_input_channel
+     000000A4  _P2_SB_D4                          adc_set_input_channel
+     000000A4  _PWRDWN                            adc_set_input_channel
+     000000A5  _P2_SB_D5                          adc_set_input_channel
+     000000A5  _WUCON                             adc_set_input_channel
+     000000A6  _INTEXP                            adc_set_input_channel
+     000000A6  _P2_SB_D6                          adc_set_input_channel
+     000000A7  _MEMCON                            adc_set_input_channel
+     000000A7  _P2_SB_D7                          adc_set_input_channel
+     000000A8  _IEN0                              adc_set_input_channel
+     000000A8  _IEN0_SB_IFP                       adc_set_input_channel
+     000000A9  _IEN0_SB_T0                        adc_set_input_channel
+     000000A9  _IP0                               adc_set_input_channel
+     000000AA  _IEN0_SB_POFIRQ                    adc_set_input_channel
+     000000AA  _S0RELL                            adc_set_input_channel
+     000000AB  _IEN0_SB_T1                        adc_set_input_channel
+     000000AB  _RTC2CPT01                         adc_set_input_channel
+     000000AC  _IEN0_SB_UART                      adc_set_input_channel
+     000000AC  _RTC2CPT10                         adc_set_input_channel
+     000000AD  _CLKLFCTRL                         adc_set_input_channel
+     000000AD  _IEN0_SB_T2                        adc_set_input_channel
+     000000AE  _OPMCON                            adc_set_input_channel
+     000000AF  _IEN0_SB_GLOBAL                    adc_set_input_channel
+     000000AF  _WDSV                              adc_set_input_channel
+     000000B0  _P3                                adc_set_input_channel
+     000000B0  _P3_SB_D0                          adc_set_input_channel
+     000000B1  _P3_SB_D1                          adc_set_input_channel
+     000000B1  _RSTREAS                           adc_set_input_channel
+     000000B2  _P3_SB_D2                          adc_set_input_channel
+     000000B2  _PWMCON                            adc_set_input_channel
+     000000B3  _P3_SB_D3                          adc_set_input_channel
+     000000B3  _RTC2CON                           adc_set_input_channel
+     000000B4  _P3_SB_D4                          adc_set_input_channel
+     000000B4  _RTC2CMP0                          adc_set_input_channel
+     000000B5  _P3_SB_D5                          adc_set_input_channel
+     000000B5  _RTC2CMP1                          adc_set_input_channel
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
 
@@ -212,57 +212,57 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000000B6  _P3_SB_D6                          main
-     000000B6  _RTC2CPT00                         main
-     000000B7  _P3_SB_D7                          main
-     000000B7  _SPISRDSZ                          main
-     000000B8  _IEN1                              main
-     000000B8  _IEN1_SB_RFRDY                     main
-     000000B9  _IEN1_SB_RFIRQ                     main
-     000000B9  _IP1                               main
-     000000BA  _IEN1_SB_SPI_2WIRE                 main
-     000000BA  _S0RELH                            main
-     000000BB  _IEN1_SB_WUOPIRQ                   main
-     000000BC  _IEN1_SB_MISCIRQ                   main
-     000000BC  _SPISCON0                          main
-     000000BD  _IEN1_SB_TICK                      main
-     000000BD  _SPISCON1                          main
-     000000BE  _SPISSTAT                          main
-     000000BF  _IEN1_SB_T2EXTRLD                  main
-     000000BF  _SPISDAT                           main
-     000000C0  _IRCON                             main
-     000000C0  _IRCON_SB_RFRDY                    main
-     000000C1  _CCEN                              main
-     000000C1  _IRCON_SB_RFIRQ                    main
-     000000C2  _CCL1                              main
-     000000C2  _IRCON_SB_SPI_2WIRE                main
-     000000C3  _CCH1                              main
-     000000C3  _IRCON_SB_WUOPIRQ                  main
-     000000C4  _CCL2                              main
-     000000C4  _IRCON_SB_MISCIRQ                  main
-     000000C5  _CCH2                              main
-     000000C5  _IRCON_SB_TICK                     main
-     000000C6  _CCL3                              main
-     000000C6  _IRCON_SB_TF2                      main
-     000000C7  _CCH3                              main
-     000000C7  _IRCON_SB_EXF2                     main
-     000000C8  _T2CON                             main
-     000000C8  _T2CON_SB_T2I0                     main
-     000000C9  _MPAGE                             main
-     000000C9  _T2CON_SB_T2I1                     main
-     000000C9  __XPAGE                            main
-     000000CA  _CRCL                              main
-     000000CA  _T2CON_SB_T2CM                     main
-     000000CB  _CRCH                              main
-     000000CB  _T2CON_SB_T2R0                     main
-     000000CC  _T2CON_SB_T2R1                     main
-     000000CC  _TL2                               main
-     000000CD  _T2CON_SB_I2FR                     main
-     000000CD  _TH2                               main
-     000000CE  _T2CON_SB_I3FR                     main
-     000000CE  _WUOPC1                            main
-     000000CF  _T2CON_SB_T2PS                     main
-     000000CF  _WUOPC0                            main
+     000000B6  _P3_SB_D6                          adc_set_input_channel
+     000000B6  _RTC2CPT00                         adc_set_input_channel
+     000000B7  _P3_SB_D7                          adc_set_input_channel
+     000000B7  _SPISRDSZ                          adc_set_input_channel
+     000000B8  _IEN1                              adc_set_input_channel
+     000000B8  _IEN1_SB_RFRDY                     adc_set_input_channel
+     000000B9  _IEN1_SB_RFIRQ                     adc_set_input_channel
+     000000B9  _IP1                               adc_set_input_channel
+     000000BA  _IEN1_SB_SPI_2WIRE                 adc_set_input_channel
+     000000BA  _S0RELH                            adc_set_input_channel
+     000000BB  _IEN1_SB_WUOPIRQ                   adc_set_input_channel
+     000000BC  _IEN1_SB_MISCIRQ                   adc_set_input_channel
+     000000BC  _SPISCON0                          adc_set_input_channel
+     000000BD  _IEN1_SB_TICK                      adc_set_input_channel
+     000000BD  _SPISCON1                          adc_set_input_channel
+     000000BE  _SPISSTAT                          adc_set_input_channel
+     000000BF  _IEN1_SB_T2EXTRLD                  adc_set_input_channel
+     000000BF  _SPISDAT                           adc_set_input_channel
+     000000C0  _IRCON                             adc_set_input_channel
+     000000C0  _IRCON_SB_RFRDY                    adc_set_input_channel
+     000000C1  _CCEN                              adc_set_input_channel
+     000000C1  _IRCON_SB_RFIRQ                    adc_set_input_channel
+     000000C2  _CCL1                              adc_set_input_channel
+     000000C2  _IRCON_SB_SPI_2WIRE                adc_set_input_channel
+     000000C3  _CCH1                              adc_set_input_channel
+     000000C3  _IRCON_SB_WUOPIRQ                  adc_set_input_channel
+     000000C4  _CCL2                              adc_set_input_channel
+     000000C4  _IRCON_SB_MISCIRQ                  adc_set_input_channel
+     000000C5  _CCH2                              adc_set_input_channel
+     000000C5  _IRCON_SB_TICK                     adc_set_input_channel
+     000000C6  _CCL3                              adc_set_input_channel
+     000000C6  _IRCON_SB_TF2                      adc_set_input_channel
+     000000C7  _CCH3                              adc_set_input_channel
+     000000C7  _IRCON_SB_EXF2                     adc_set_input_channel
+     000000C8  _T2CON                             adc_set_input_channel
+     000000C8  _T2CON_SB_T2I0                     adc_set_input_channel
+     000000C9  _MPAGE                             adc_set_input_channel
+     000000C9  _T2CON_SB_T2I1                     adc_set_input_channel
+     000000C9  __XPAGE                            adc_set_input_channel
+     000000CA  _CRCL                              adc_set_input_channel
+     000000CA  _T2CON_SB_T2CM                     adc_set_input_channel
+     000000CB  _CRCH                              adc_set_input_channel
+     000000CB  _T2CON_SB_T2R0                     adc_set_input_channel
+     000000CC  _T2CON_SB_T2R1                     adc_set_input_channel
+     000000CC  _TL2                               adc_set_input_channel
+     000000CD  _T2CON_SB_I2FR                     adc_set_input_channel
+     000000CD  _TH2                               adc_set_input_channel
+     000000CE  _T2CON_SB_I3FR                     adc_set_input_channel
+     000000CE  _WUOPC1                            adc_set_input_channel
+     000000CF  _T2CON_SB_T2PS                     adc_set_input_channel
+     000000CF  _WUOPC0                            adc_set_input_channel
 ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
 Hexadecimal  [32-Bits]
 
@@ -272,57 +272,57 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000000D0  _PSW                               main
-     000000D0  _PSW_SB_P                          main
-     000000D1  _ADCCON3                           main
-     000000D1  _PSW_SB_F1                         main
-     000000D2  _ADCCON2                           main
-     000000D2  _PSW_SB_OV                         main
-     000000D3  _ADCCON1                           main
-     000000D3  _PSW_SB_RS0                        main
-     000000D4  _ADCDATH                           main
-     000000D4  _PSW_SB_RS1                        main
-     000000D5  _ADCDATL                           main
-     000000D5  _PSW_SB_F0                         main
-     000000D6  _PSW_SB_AC                         main
-     000000D6  _RNGCTL                            main
-     000000D7  _PSW_SB_CY                         main
-     000000D7  _RNGDAT                            main
-     000000D8  _ADCON                             main
-     000000D9  _W2SADR                            main
-     000000DA  _W2DAT                             main
-     000000DB  _COMPCON                           main
-     000000DC  _POFCON                            main
-     000000DD  _CCPDATIA                          main
-     000000DE  _CCPDATIB                          main
-     000000DF  _ADCON_SB_BD                       main
-     000000DF  _CCPDATO                           main
-     000000E0  _ACC                               main
-     000000E1  _W2CON1                            main
-     000000E2  _W2CON0                            main
-     000000E4  _SPIRCON0                          main
-     000000E5  _SPIRCON1                          main
-     000000E6  _SPIRSTAT                          main
-     000000E7  _SPIRDAT                           main
-     000000E8  _RFCON                             main
-     000000E8  _RFCON_SB_RFCE                     main
-     000000E9  _MD0                               main
-     000000E9  _RFCON_SB_RFCSN                    main
-     000000EA  _MD1                               main
-     000000EA  _RFCON_SB_RFCKEN                   main
-     000000EB  _MD2                               main
-     000000EC  _MD3                               main
-     000000ED  _MD4                               main
-     000000EE  _MD5                               main
-     000000EF  _ARCON                             main
-     000000F0  _B                                 main
+     000000D0  _PSW                               adc_set_input_channel
+     000000D0  _PSW_SB_P                          adc_set_input_channel
+     000000D1  _ADCCON3                           adc_set_input_channel
+     000000D1  _PSW_SB_F1                         adc_set_input_channel
+     000000D2  _ADCCON2                           adc_set_input_channel
+     000000D2  _PSW_SB_OV                         adc_set_input_channel
+     000000D3  _ADCCON1                           adc_set_input_channel
+     000000D3  _PSW_SB_RS0                        adc_set_input_channel
+     000000D4  _ADCDATH                           adc_set_input_channel
+     000000D4  _PSW_SB_RS1                        adc_set_input_channel
+     000000D5  _ADCDATL                           adc_set_input_channel
+     000000D5  _PSW_SB_F0                         adc_set_input_channel
+     000000D6  _PSW_SB_AC                         adc_set_input_channel
+     000000D6  _RNGCTL                            adc_set_input_channel
+     000000D7  _PSW_SB_CY                         adc_set_input_channel
+     000000D7  _RNGDAT                            adc_set_input_channel
+     000000D8  _ADCON                             adc_set_input_channel
+     000000D9  _W2SADR                            adc_set_input_channel
+     000000DA  _W2DAT                             adc_set_input_channel
+     000000DB  _COMPCON                           adc_set_input_channel
+     000000DC  _POFCON                            adc_set_input_channel
+     000000DD  _CCPDATIA                          adc_set_input_channel
+     000000DE  _CCPDATIB                          adc_set_input_channel
+     000000DF  _ADCON_SB_BD                       adc_set_input_channel
+     000000DF  _CCPDATO                           adc_set_input_channel
+     000000E0  _ACC                               adc_set_input_channel
+     000000E1  _W2CON1                            adc_set_input_channel
+     000000E2  _W2CON0                            adc_set_input_channel
+     000000E4  _SPIRCON0                          adc_set_input_channel
+     000000E5  _SPIRCON1                          adc_set_input_channel
+     000000E6  _SPIRSTAT                          adc_set_input_channel
+     000000E7  _SPIRDAT                           adc_set_input_channel
+     000000E8  _RFCON                             adc_set_input_channel
+     000000E8  _RFCON_SB_RFCE                     adc_set_input_channel
+     000000E9  _MD0                               adc_set_input_channel
+     000000E9  _RFCON_SB_RFCSN                    adc_set_input_channel
+     000000EA  _MD1                               adc_set_input_channel
+     000000EA  _RFCON_SB_RFCKEN                   adc_set_input_channel
+     000000EB  _MD2                               adc_set_input_channel
+     000000EC  _MD3                               adc_set_input_channel
+     000000ED  _MD4                               adc_set_input_channel
+     000000EE  _MD5                               adc_set_input_channel
+     000000EF  _ARCON                             adc_set_input_channel
+     000000F0  _B                                 adc_set_input_channel
      000000F5  _B_5                               _gptrget
      000000F6  _B_6                               _gptrget
      000000F7  _B_7                               _gptrget
-     000000F8  _FSR                               main
-     000000F9  _FPCR                              main
-     000000FA  _FCR                               main
-     000000FA  _FSR_SB_RDISMB                     main
+     000000F8  _FSR                               adc_set_input_channel
+     000000F9  _FPCR                              adc_set_input_channel
+     000000FA  _FCR                               adc_set_input_channel
+     000000FA  _FSR_SB_RDISMB                     adc_set_input_channel
 ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
 Hexadecimal  [32-Bits]
 
@@ -332,25 +332,27 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000000FB  _FSR_SB_INFEN                      main
-     000000FC  _FSR_SB_RDYN                       main
-     000000FC  _SPIMCON0                          main
-     000000FD  _FSR_SB_WEN                        main
-     000000FD  _SPIMCON1                          main
-     000000FE  _FSR_SB_STP                        main
-     000000FE  _SPIMSTAT                          main
-     000000FF  _FSR_SB_ENDBG                      main
-     000000FF  _SPIMDAT                           main
-     00008C8A  _T0                                main
-     00008D8B  _T1                                main
-     0000BAAA  _S0REL                             main
-     0000C3C2  _CC1                               main
-     0000C5C4  _CC2                               main
-     0000C7C6  _CC3                               main
-     0000CBCA  _CRC                               main
-     0000CDCC  _T2                                main
-     0000D4D5  _ADCDAT                            main
-     0000FC00  _config                            main
+     000000FB  _FSR_SB_INFEN                      adc_set_input_channel
+     000000FC  _FSR_SB_RDYN                       adc_set_input_channel
+     000000FC  _SPIMCON0                          adc_set_input_channel
+     000000FD  _FSR_SB_WEN                        adc_set_input_channel
+     000000FD  _SPIMCON1                          adc_set_input_channel
+     000000FE  _FSR_SB_STP                        adc_set_input_channel
+     000000FE  _SPIMSTAT                          adc_set_input_channel
+     000000FF  _FSR_SB_ENDBG                      adc_set_input_channel
+     000000FF  _SPIMDAT                           adc_set_input_channel
+     00008C8A  _T0                                adc_set_input_channel
+     00008D8B  _T1                                adc_set_input_channel
+     0000BAAA  _S0REL                             adc_set_input_channel
+     0000C3C2  _CC1                               adc_set_input_channel
+     0000C5C4  _CC2                               adc_set_input_channel
+     0000C7C6  _CC3                               adc_set_input_channel
+     0000CBCA  _CRC                               adc_set_input_channel
+     0000CDCC  _T2                                adc_set_input_channel
+     0000D4D5  _ADCDAT                            adc_set_input_channel
+     0000FA00  _envmconfig                        main
+     0000FC00  _nvmconfig                         main
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
 Hexadecimal  [32-Bits]
 
@@ -374,7 +376,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-DSEG                                00000000    0000007D =         125. bytes (REL,CON)
+DSEG                                00000000    0000007F =         127. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -383,7 +385,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-OSEG                                00000008    00000015 =          21. bytes (REL,OVR)
+OSEG                                00000074    0000000B =          11. bytes (REL,OVR)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -392,81 +394,81 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-SSEG                                00000056    000000AA =         170. bytes (REL,OVR)
+SSEG                                0000007F    00000081 =         129. bytes (REL,OVR)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000056  __start__stack                     main
+     0000007F  __start__stack                     main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 13.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XSEG                                00000001    00000276 =         630. bytes (REL,CON,XDATA)
+XSEG                                00000001    000002B5 =         693. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-D:   00000007  _gpio_pin_configure_PARM_2         main
-D:   0000000D  _interrupt_configure_ifp_PARM_2    main
-D:   0000000F  _w2_configure_PARM_2               main
-D:   00000012  _w2_master_cur_address_read_PARM   main
-D:   00000015  _w2_master_cur_address_read_PARM   main
-D:   0000001D  _w2_master_random_address_read_P   main
-D:   00000020  _w2_master_random_address_read_P   main
-D:   00000021  _w2_master_random_address_read_P   main
-D:   00000024  _w2_master_random_address_read_P   main
-D:   00000029  _w2_master_rx_byte_PARM_2          main
-D:   0000002E  _w2_master_tx_byte_PARM_2          main
-D:   00000030  _w2_master_write_control_bytes_P   main
-D:   00000033  _w2_master_write_control_bytes_P   main
-D:   00000035  _w2_master_write_to_PARM_2         main
-D:   00000038  _w2_master_write_to_PARM_3         main
-D:   00000039  _w2_master_write_to_PARM_4         main
-D:   0000003C  _w2_master_write_to_PARM_5         main
-D:   00000043  _rf_read_rx_payload_PARM_2         main
-D:   00000048  _rf_configure_debug_lite_PARM_2    main
-D:   0000004B  _rf_write_register_PARM_2          main
-D:   0000004E  _rf_write_register_PARM_3          main
-D:   00000051  _rf_write_tx_payload_PARM_2        main
-D:   00000053  _rf_write_tx_payload_PARM_3        main
-D:   0000005B  _rf_spi_execute_command_PARM_2     main
-D:   0000005E  _rf_spi_execute_command_PARM_3     main
-D:   00000060  _rf_spi_execute_command_PARM_4     main
-D:   00000063  _rf_spi_send_read_PARM_2           main
-D:   00000065  _rf_spi_send_read_PARM_3           main
-D:   00000069  _rf_power_up_param_PARM_2          main
-D:   0000006B  _rf_read_register_PARM_2           main
-D:   0000006E  _rf_read_register_PARM_3           main
-D:   00000072  _rf_set_rx_addr_PARM_2             main
-D:   00000074  _rf_set_rx_addr_PARM_3             main
-D:   00000097  _aes_add_round_key_PARM_2          main
-D:   000000A2  _aes_key_expansion_PARM_2          main
-D:   000000AC  _aes_initialize_PARM_2             main
-D:   000000AD  _aes_initialize_PARM_3             main
-D:   000000B0  _aes_initialize_PARM_4             main
-D:   000000B6  _aes_data                          main
-D:   000001F7  _aes_encrypt_ecb_PARM_2            main
-D:   000001FA  _aes_encrypt_ecb_PARM_3            main
-D:   00000201  _dhtread_PARM_2                    main
-D:   00000232  _rfread_PARM_2                     main
-D:   00000252  __divulong_PARM_2                  _divulong
-D:   0000025E  _memcpy_PARM_2                     _memcpy
-D:   00000261  _memcpy_PARM_3                     _memcpy
-D:   00000266  __gptrput_PARM_2                   _gptrput
-D:   00000267  __mulint_PARM_2                    _mulint
-D:   00000269  __mullong_PARM_2                   _mullong
-D:   0000026D  __divsint_PARM_2                   _divsint
+D:   00000001  _config                            main
+D:   00000027  _aes_data                          main
+D:   0000013E  _send_config_PARM_2                main
+D:   00000151  _send_config_err_PARM_2            main
+D:   00000186  _CRC8_PARM_2                       crc8
+D:   000001AC  _rfread_PARM_2                     radio
+D:   000001CA  _dht_read_PARM_2                   dht
+D:   000001D9  _rf_read_rx_payload_PARM_2         rf_read_rx_payload
+D:   000001DE  _aes_encrypt_ecb_PARM_2            aes_encrypt_ecb
+D:   000001E1  _aes_encrypt_ecb_PARM_3            aes_encrypt_ecb
+D:   000001E7  _rf_write_register_PARM_2          rf_write_register
+D:   000001EA  _rf_write_register_PARM_3          rf_write_register
+D:   000001F1  _w2_configure_PARM_2               w2_configure
+D:   000001F4  _aes_initialize_PARM_2             aes_initialize
+D:   000001F5  _aes_initialize_PARM_3             aes_initialize
+D:   000001F8  _aes_initialize_PARM_4             aes_initialize
+D:   000001FE  _memcpy_PARM_2                     _memcpy
+D:   00000201  _memcpy_PARM_3                     _memcpy
+D:   00000206  _aes_add_round_key_PARM_2          aes_add_round_key
+D:   0000020F  _rf_spi_execute_command_PARM_2     rf_spi_execute_command
+D:   00000212  _rf_spi_execute_command_PARM_3     rf_spi_execute_command
+D:   00000214  _rf_spi_execute_command_PARM_4     rf_spi_execute_command
+D:   00000217  _aes_key_expansion_PARM_2          aes_key_expansion
+D:   00000221  __gptrput_PARM_2                   _gptrput
+D:   00000222  _rf_write_tx_payload_PARM_2        rf_write_tx_payload
+D:   00000224  _rf_write_tx_payload_PARM_3        rf_write_tx_payload
+D:   00000228  _gpio_pin_configure_PARM_2         gpio_pin_configure
+D:   0000022A  _memory_flash_write_bytes_PARM_2   memory_flash_write_bytes
+D:   0000022C  _memory_flash_write_bytes_PARM_3   memory_flash_write_bytes
+D:   00000231  _rf_read_register_PARM_2           rf_read_register
+D:   00000234  _rf_read_register_PARM_3           rf_read_register
+D:   00000237  __mulint_PARM_2                    _mulint
+D:   0000023A  _aes_decrypt_ecb_PARM_2            aes_decrypt_ecb
+D:   0000023D  _aes_decrypt_ecb_PARM_3            aes_decrypt_ecb
+D:   00000246  _w2_master_cur_address_read_PARM   w2_master_cur_address_read
+D:   00000249  _w2_master_cur_address_read_PARM   w2_master_cur_address_read
+D:   00000251  _w2_master_write_to_PARM_2         w2_master_write_to
+D:   00000254  _w2_master_write_to_PARM_3         w2_master_write_to
+D:   00000255  _w2_master_write_to_PARM_4         w2_master_write_to
+D:   00000258  _w2_master_write_to_PARM_5         w2_master_write_to
+D:   0000025E  __divsint_PARM_2                   _divsint
+D:   00000264  __divuint_PARM_2                   _divuint
+D:   0000026A  _memory_flash_write_byte_PARM_2    memory_flash_write_byte
+D:   0000026F  _w2_master_write_control_bytes_P   w2_master_write_control_byte
+D:   00000272  _w2_master_write_control_bytes_P   w2_master_write_control_byte
+D:   0000027D  _rf_spi_send_read_PARM_2           rf_spi_send_read
+D:   0000027F  _rf_spi_send_read_PARM_3           rf_spi_send_read
+D:   00000283  _memory_flash_get_page_num_from_   memory_flash_get_page_num_fr
+D:   00000293  _w2_master_rx_byte_PARM_2          w2_master_rx_byte
+D:   00000297  _w2_master_tx_byte_PARM_2          w2_master_tx_byte
 ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-XSEG                                00000001    00000276 =         630. bytes (REL,CON,XDATA)
+XSEG                                00000001    000002B5 =         693. bytes (REL,CON,XDATA)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-D:   00000271  __divuint_PARM_2                   _divuint
+D:   0000029D  _enc_dec_accel_galois_multiply_P   enc_dec_accel_galois_multipl
 ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
 Hexadecimal  [32-Bits]
 
@@ -535,183 +537,298 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00000062    00002F6E =       12142. bytes (REL,CON,CODE)
+CSEG                                00000062    00003A02 =       14850. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   00000062  _delay_us                          main
-C:   000000A3  _delay_s                           main
-C:   000000DF  _delay_ms                          main
-C:   0000011B  _gpio_pin_configure                main
-C:   00000317  _gpio_pin_val_clear                main
-C:   00000383  _gpio_pin_val_set                  main
-C:   000003EB  _gpio_pin_val_read                 main
-C:   0000047F  _interrupt_configure_ifp           main
-C:   000004F1  _w2_configure                      main
-C:   00000535  _w2_master_cur_address_read        main
-C:   00000648  _w2_master_process_start_request   main
-C:   0000065D  _w2_master_process_stop_request    main
-C:   00000671  _w2_master_random_address_read     main
-C:   000006E2  _w2_master_rx_byte                 main
-C:   0000072D  _w2_master_software_reset          main
-C:   00000784  _w2_master_tx_byte                 main
-C:   000007B4  _w2_master_write_control_bytes     main
-C:   00000832  _w2_master_write_to                main
-C:   00000956  _w2_wait_for_byte_tx_or_rx         main
-C:   00000969  _rf_read_rx_payload                main
-C:   000009BE  _rf_configure_debug_lite           main
-C:   00000A23  _rf_write_register                 main
-C:   00000A61  _rf_spi_configure_enable           main
-C:   00000A68  _rf_write_tx_payload               main
-C:   00000ABD  _rf_transmit                       main
-C:   00000ACE  _rf_set_as_rx                      main
-C:   00000B2C  _rf_irq_clear_all                  main
-C:   00000B50  _rf_set_as_tx                      main
-C:   00000B98  _rf_spi_execute_command            main
-C:   00000BF4  _rf_spi_send_read                  main
-C:   00000C87  _rf_power_up_param                 main
-C:   00000CD4  _rf_read_register                  main
-C:   00000D10  _rf_spi_send_read_byte             main
-C:   00000D24  _rf_set_rx_addr                    main
-C:   00000D6D  _rf_power_down                     main
-C:   00000DB5  _rf_power_up                       main
-C:   00000E24  _rf_tx_fifo_is_full                main
-C:   00000E50  _radiobegin                        main
-C:   00000EF7  _setChannel                        main
-C:   00000F18  _setDataRate                       main
-C:   00000F7C  _setAutoAck                        main
-C:   00000FAF  _setCRCLength                      main
-C:   00001013  _setPALevel                        main
-C:   00001052  _openAllPipe                       main
-C:   000010F4  _watchdog_set_wdsv_count           main
-C:   0000110C  _watchdog_start_and_set_timeout_   main
-C:   000011C5  _pwr_clk_mgmt_clklf_configure      main
-C:   000011DA  _enc_dec_accel_galois_multiply     main
-C:   000011ED  _aes_get_sbox                      main
-C:   000011FB  _aes_add_round_key                 main
+C:   000000BF  _send_config                       main
+C:   000000FD  _send_config_err                   main
+C:   0000012A  _main                              main
+C:   0000062C  _ds18b20_read                      ds18b20
+C:   0000084A  _CRC8                              crc8
+C:   000008C6  _radio_init                        radio
+C:   0000096D  _setChannel                        radio
+C:   0000098E  _setDataRate                       radio
+C:   000009F2  _setAutoAck                        radio
+C:   00000A26  _setCRCLength                      radio
+C:   00000A8A  _setPALevel                        radio
+C:   00000AC9  _openAllPipe                       radio
+C:   00000BD9  _rfsend                            radio
+C:   00000D45  _rfread                            radio
+C:   00000E61  _rfpwrDown                         radio
+C:   00000E67  _bh1750_init                       bh1750
+C:   00000E72  _bh1750_read                       bh1750
+C:   00000FD3  _dht_init                          dht
+C:   00000FDF  _dht_read                          dht
+C:   0000122A  _delay_s                           delay_s
+C:   00001266  _rf_read_rx_payload                rf_read_rx_payload
+C:   000012A8  _aes_encrypt_ecb                   aes_encrypt_ecb
+C:   000014C5  _rf_write_register                 rf_write_register
+C:   00001503  _aes_sub_bytes                     aes_sub_bytes
+C:   000015AE  _pwr_clk_mgmt_op_mode_configure    pwr_clk_mgmt_op_mode_configu
+C:   000015C2  _w2_configure                      w2_configure
+C:   000015FF  _rf_spi_configure_enable           rf_spi_configure_enable
+C:   00001606  _aes_initialize                    aes_initialize
+C:   00001764  _memcpy                            _memcpy
+C:   000017D8  _aes_add_round_key                 aes_add_round_key
+C:   0000188D  _memory_flash_erase_page           memory_flash_erase_page
+C:   000018B5  _gpio_pin_val_read                 gpio_pin_val_read
+C:   00001948  _aes_get_sbox                      aes_get_sbox
+C:   00001956  _rf_tx_fifo_is_full                rf_tx_fifo_is_full
+C:   00001982  _rf_spi_execute_command            rf_spi_execute_command
+C:   000019DE  _aes_key_expansion                 aes_key_expansion
+C:   00001DC9  __gptrput                          _gptrput
+C:   00001DE4  _rf_write_tx_payload               rf_write_tx_payload
+C:   00001E3E  _gpio_pin_configure                gpio_pin_configure
+C:   00002032  _memory_flash_write_bytes          memory_flash_write_bytes
+C:   00002118  _rf_read_register                  rf_read_register
+C:   00002154  __mulint                           _mulint
+C:   00002174  _rf_power_down                     rf_power_down
+C:   000021BC  _aes_decrypt_ecb                   aes_decrypt_ecb
+C:   00002388  _aes_sub_word                      aes_sub_word
+C:   0000246C  _w2_master_cur_address_read        w2_master_cur_address_read
+C:   0000257F  _rf_set_as_rx                      rf_set_as_rx
+C:   000025E4  _w2_master_write_to                w2_master_write_to
+C:   00002708  __divsint                          _divsint
+C:   00002779  _rf_irq_clear_all                  rf_irq_clear_all
 ASxxxx Linker V03.00 + NoICE + sdld,  page 22.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CSEG                                00000062    00002F6E =       12142. bytes (REL,CON,CODE)
+CSEG                                00000062    00003A02 =       14850. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-C:   000012B0  _aes_sub_word                      main
-C:   00001394  _aes_rot_word                      main
-C:   0000141C  _aes_get_rcon                      main
-C:   00001433  _aes_key_expansion                 main
-C:   0000181E  _aes_initialize                    main
-C:   00001973  _aes_sub_bytes                     main
-C:   00001A1E  _aes_mix_columns                   main
-C:   00001BF9  _aes_shift_rows                    main
-C:   00001D9E  _aes_encrypt_ecb                   main
-C:   00001FBB  _waitpin                           main
-C:   00001FE2  _dhtread                           main
-C:   00002249  _OneWireReset                      main
-C:   00002288  _OneWireOutByte                    main
-C:   000022F4  _OneWireInByte                     main
-C:   00002353  _dsread                            main
-C:   000024E6  _bh1750init                        main
-C:   000024F1  _bh1750read                        main
-C:   0000262B  _rfsend                            main
-C:   00002797  _rfread                            main
-C:   00002836  _main                              main
-C:   00002A4B  __divulong                         _divulong
-C:   00002B56  _memcpy                            _memcpy
-C:   00002BCA  __gptrput                          _gptrput
-C:   00002BE5  __mulint                           _mulint
-C:   00002C05  __mullong                          _mullong
-C:   00002C05  __mullong_dummy                    _mullong
-C:   00002C71  __divsint                          _divsint
-C:   00002CE2  __divuint                          _divuint
-C:   00002D7C  ___sint2fs                         _sint2fs
-C:   00002D89  ___fs2uint                         _fs2uint
-C:   00002D94  ___fsdiv                           _fsdiv
-C:   00002E57  __gptrget                          _gptrget
-C:   00002E73  ___slong2fs                        _slong2fs
-C:   00002E7C  slong2fs_doit                      _slong2fs
-C:   00002EA0  fsgetargs                          _fsget2args
-C:   00002ECE  fs_normalize_a                     _fsnormalize
-C:   00002F01  __sdcc_external_startup            _startup
-C:   00002F05  ___fs2ulong                        _fs2ulong
-C:   00002F07  fs2ulong_begin                     _fs2ulong
-C:   00002F2C  fs_round_and_return                _fsreturnval
-C:   00002F44  fs_zerocheck_return                _fsreturnval
-C:   00002F4D  fs_return_zero                     _fsreturnval
-C:   00002F55  fs_direct_return                   _fsreturnval
-C:   00002F63  fs_return_inf                      _fsreturnval
-C:   00002F70  fs_return_nan                      _fsreturnval
-C:   00002F7B  fs_rshift_a                        _fsrshift
-C:   00002FBE  fsgetarg                           _fsget1arg
-
+C:   0000279D  _rf_set_as_tx                      rf_set_as_tx
+C:   000027FE  __divuint                          _divuint
+C:   00002898  _memory_flash_write_byte           memory_flash_write_byte
+C:   00002929  _w2_master_write_control_bytes     w2_master_write_control_byte
+C:   000029A7  _memory_flash_does_address_exist   memory_flash_does_address_ex
+C:   000029E6  _aes_mix_columns                   aes_mix_columns
+C:   00002C80  _rf_spi_send_read                  rf_spi_send_read
+C:   00002D13  ___sint2fs                         _sint2fs
+C:   00002D20  _memory_flash_get_page_num_from_   memory_flash_get_page_num_fr
+C:   00002DC4  _aes_rot_word                      aes_rot_word
+C:   00002E4C  ___fs2uint                         _fs2uint
+C:   00002E57  _adc_configure                     adc_configure
+C:   00002E8A  _gpio_pin_val_complement           gpio_pin_val_complement
+C:   00002EF2  _aes_shift_rows_inv                aes_shift_rows_inv
+C:   00003097  _delay_ms                          delay_ms
+C:   000030D3  _w2_master_rx_byte                 w2_master_rx_byte
+C:   0000311E  _w2_master_tx_byte                 w2_master_tx_byte
+C:   0000314E  _pwr_clk_mgmt_clklf_configure      pwr_clk_mgmt_clklf_configure
+C:   00003162  _aes_sub_bytes_inv                 aes_sub_bytes_inv
+C:   0000320D  _enc_dec_accel_galois_multiply     enc_dec_accel_galois_multipl
+C:   00003220  _delay_us                          delay_us
+C:   0000326A  _adc_start_single_conversion_get   adc_start_single_conversion_
+C:   00003287  _rf_spi_send_read_byte             rf_spi_send_read_byte
+C:   0000329B  ___fsdiv                           _fsdiv
+C:   0000335E  __gptrget                          _gptrget
+C:   0000337A  _gpio_pin_val_clear                gpio_pin_val_clear
+C:   000033E6  ___slong2fs                        _slong2fs
+C:   000033EF  slong2fs_doit                      _slong2fs
+C:   00003413  _aes_get_sbox_inv                  aes_get_sbox_inv
+C:   00003421  _w2_master_software_reset          w2_master_software_reset
+C:   00003467  _aes_shift_rows                    aes_shift_rows
+C:   0000360C  fsgetargs                          _fsget2args
+C:   0000363A  _w2_master_process_start_request   w2_master_process_start_requ
+C:   0000364B  _rf_transmit                       rf_transmit
+C:   0000365C  _aes_get_rcon                      aes_get_rcon
+C:   00003673  fs_normalize_a                     _fsnormalize
+C:   000036A6  __sdcc_external_startup            _startup
+C:   000036AA  _aes_mix_columns_inv               aes_mix_columns_inv
+C:   00003944  ___fs2ulong                        _fs2ulong
+C:   00003946  fs2ulong_begin                     _fs2ulong
+C:   0000396B  _adc_start_single_conversion       adc_start_single_conversion
+C:   0000397F  _w2_master_process_stop_request    w2_master_process_stop_reque
+C:   00003993  _w2_wait_for_byte_tx_or_rx         w2_wait_for_byte_tx_or_rx
+C:   000039A6  fs_round_and_return                _fsreturnval
+C:   000039BE  fs_zerocheck_return                _fsreturnval
+C:   000039C7  fs_return_zero                     _fsreturnval
+C:   000039CF  fs_direct_return                   _fsreturnval
+C:   000039DD  fs_return_inf                      _fsreturnval
+C:   000039EA  fs_return_nan                      _fsreturnval
+C:   000039F5  _adc_set_input_channel             adc_set_input_channel
+C:   00003A0F  fs_rshift_a                        _fsrshift
 ASxxxx Linker V03.00 + NoICE + sdld,  page 23.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-CONST                               00002FD0    000001FF =         511. bytes (REL,CON,CODE)
+CSEG                                00000062    00003A02 =       14850. bytes (REL,CON,CODE)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+C:   00003A52  fsgetarg                           _fsget1arg
 ASxxxx Linker V03.00 + NoICE + sdld,  page 24.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+CONST                               00003A64    000002FF =         767. bytes (REL,CON,CODE)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 25.
 
 Files Linked                              [ module(s) ]
 
-build/obj/main.rel                        [  ]
+build/nrf24le1-sensor.rel                 [  ]
+build/obj/ds18b20.rel                     [  ]
+build/obj/crc8.rel                        [  ]
+build/obj/radio.rel                       [  ]
+build/obj/bh1750.rel                      [  ]
+build/obj/dht.rel                         [  ]
 
 
 Libraries Linked                          [ object file ]
 
-/opt/sdcc/bin/../share/sdcc/lib/large/liblong.lib
-                                          [ _divulong.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/mcs51.lib
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ delay_s ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ rf_read_rx_payload ]
+aes/lib/aes.lib                           [ aes_encrypt_ecb ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ rf_write_register ]
+aes/lib/aes.lib                           [ aes_sub_bytes ]
+/usr/local/share/sdcc/lib/large/mcs51.lib
                                           [ crtclear.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/libsdcc.lib
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ pwr_clk_mgmt_op_mode_configure ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ w2_configure ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ rf_spi_configure_enable ]
+aes/lib/aes.lib                           [ aes_initialize ]
+/usr/local/share/sdcc/lib/large/libsdcc.lib
                                           [ _memcpy.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/mcs51.lib
+/usr/local/share/sdcc/lib/large/mcs51.lib
                                           [ crtxinit.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/libsdcc.lib
+aes/lib/aes.lib                           [ aes_add_round_key ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ memory_flash_erase_page ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ gpio_pin_val_read ]
+aes/lib/aes.lib                           [ aes_get_sbox ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ rf_tx_fifo_is_full ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ rf_spi_execute_command ]
+aes/lib/aes.lib                           [ aes_key_expansion ]
+/usr/local/share/sdcc/lib/large/libsdcc.lib
                                           [ _gptrput.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/libint.lib
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ rf_write_tx_payload ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ gpio_pin_configure ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ memory_flash_write_bytes ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ rf_read_register ]
+/usr/local/share/sdcc/lib/large/libint.lib
                                           [ _mulint.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/liblong.lib
-                                          [ _mullong.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/mcs51.lib
-                                          [ crtxclear.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/libint.lib
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ rf_power_down ]
+aes/lib/aes.lib                           [ aes_decrypt_ecb ]
+aes/lib/aes.lib                           [ aes_sub_word ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ w2_master_cur_address_read ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ rf_set_as_rx ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ w2_master_write_to ]
+/usr/local/share/sdcc/lib/large/libint.lib
                                           [ _divsint.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/libint.lib
+/usr/local/share/sdcc/lib/large/mcs51.lib
+                                          [ crtxclear.rel ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ rf_irq_clear_all ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ rf_set_as_tx ]
+/usr/local/share/sdcc/lib/large/libint.lib
                                           [ _divuint.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/libfloat.lib
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ memory_flash_write_byte ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ w2_master_write_control_bytes ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ memory_flash_does_address_exist_ ]
+aes/lib/aes.lib                           [ aes_mix_columns ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ rf_spi_send_read ]
+/usr/local/share/sdcc/lib/large/libfloat.lib
                                           [ _sint2fs.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/libfloat.lib
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ memory_flash_get_page_num_from_a ]
+aes/lib/aes.lib                           [ aes_rot_word ]
+/usr/local/share/sdcc/lib/large/libfloat.lib
                                           [ _fs2uint.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/libfloat.lib
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ adc_configure ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ gpio_pin_val_complement ]
+aes/lib/aes.lib                           [ aes_shift_rows_inv ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ delay_ms ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ w2_master_rx_byte ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ w2_master_tx_byte ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ pwr_clk_mgmt_clklf_configure ]
+aes/lib/aes.lib                           [ aes_sub_bytes_inv ]
+aes/lib/aes.lib                           [ enc_dec_accel_galois_multiply ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ delay_us ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ adc_start_single_conversion_get_ ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ rf_spi_send_read_byte ]
+/usr/local/share/sdcc/lib/large/libfloat.lib
                                           [ _fsdiv.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/mcs51.lib
+/usr/local/share/sdcc/lib/large/mcs51.lib
                                           [ crtstart.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/libsdcc.lib
+/usr/local/share/sdcc/lib/large/libsdcc.lib
                                           [ _gptrget.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/libfloat.lib
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ gpio_pin_val_clear ]
+/usr/local/share/sdcc/lib/large/libfloat.lib
                                           [ _slong2fs.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/libfloat.lib
+aes/lib/aes.lib                           [ aes_get_sbox_inv ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ w2_master_software_reset ]
+aes/lib/aes.lib                           [ aes_shift_rows ]
+/usr/local/share/sdcc/lib/large/libfloat.lib
                                           [ _fsget2args.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/libfloat.lib
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ w2_master_process_start_request ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ rf_transmit ]
+aes/lib/aes.lib                           [ aes_get_rcon ]
+/usr/local/share/sdcc/lib/large/libfloat.lib
                                           [ _fsnormalize.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/libsdcc.lib
+/usr/local/share/sdcc/lib/large/libsdcc.lib
                                           [ _startup.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/libfloat.lib
+aes/lib/aes.lib                           [ aes_mix_columns_inv ]
+/usr/local/share/sdcc/lib/large/libfloat.lib
                                           [ _fs2ulong.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/libfloat.lib
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ adc_start_single_conversion ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ w2_master_process_stop_request ]
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ w2_wait_for_byte_tx_or_rx ]
+/usr/local/share/sdcc/lib/large/libfloat.lib
                                           [ _fsreturnval.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/libfloat.lib
+sdk/_target_sdcc_nrf24le1_32/lib/nrf24le1.lib
+                                          [ adc_set_input_channel ]
+/usr/local/share/sdcc/lib/large/libfloat.lib
                                           [ _fsrshift.rel ]
-/opt/sdcc/bin/../share/sdcc/lib/large/libfloat.lib
+/usr/local/share/sdcc/lib/large/libfloat.lib
                                           [ _fsget1arg.rel ]
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 25.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 26.
 
 User Base Address Definitions
 
