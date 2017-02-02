@@ -127,8 +127,6 @@ void main(void) {
 #endif
 
 	// program code
-	message.deviceID = config.deviceID;
-
 	ret = pwr_clk_mgmt_get_reset_reason();
 	if (pwr_clk_mgmt_was_prev_reset_watchdog(ret))
 		pwr_clk_mgmt_open_retention_latches();
@@ -186,7 +184,7 @@ void main(void) {
 
 #if EN_ADC_LIGHT || EN_VBAT
 	adc_configure((uint16_t)
-		  ADC_CONFIG_OPTION_RESOLUTION_12_BITS |
+		  ADC_CONFIG_OPTION_RESOLUTION_10_BITS |
 		  ADC_CONFIG_OPTION_REF_SELECT_VDD |
 		  ADC_CONFIG_OPTION_ACQ_TIME_12_US |
 		  ADC_CONFIG_OPTION_RESULT_JUSTIFICATION_RIGHT
@@ -215,6 +213,8 @@ void main(void) {
 #endif
 
 	while(1) {
+
+		message.deviceID = config.deviceID;
 
 #if EN_VBAT
 		value = adc_start_single_conversion_get_value(VBATCH);
