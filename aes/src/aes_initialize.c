@@ -59,6 +59,7 @@ void aes_initialize(aes_data_t * aes_data_p, aes_key_length_t aes_key_length, co
 	//run the key expansion algorithm
 	aes_key_expansion(aes_data_p, key);
 
+#if 0 //save memory
 	//Set up the initialization vector if provided
 	if(iv != NULL)
 	{
@@ -67,6 +68,6 @@ void aes_initialize(aes_data_t * aes_data_p, aes_key_length_t aes_key_length, co
 			aes_data_p->iv_or_intermediate_data[i] = iv[i];
 		}
 	}
-
 	aes_data_p->rem_key_bytes = 0;
+#endif
 }

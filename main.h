@@ -15,18 +15,12 @@
 #define EN_RF			1		// radio enable
 #define EN_DHT			1		// DHT21/22 enable
 #define EN_DS18B20		1		// DS18B20 enable
-#define EN_VBAT			0		// ADC battery voltage
-#define EN_ADC_LIGHT	1		// ADC based light sensor enable
-#define EN_BH1750		0		// BH1750 enable
+#define EN_VBAT			1		// ADC battery voltage
+#define EN_ADC_LIGHT	0		// ADC based light sensor enable
+#define EN_BH1750		1		// BH1750 enable
 #define EN_SLEEP		1		// power save mode enable
-
-#define EN_AES	1
+#define EN_AES			1		// use AES
 #define MSGLEN	sizeof(MESSAGE_T)
-
-#if EN_AES
-#include "aes.h"
-extern aes_data_t aes_data;
-#endif
 
 #include <stdint.h>
 
@@ -52,24 +46,24 @@ struct CONFIG {
 
 typedef enum {
 #if EN_ADC_LIGHT
-	ADDR_ADC_LIGHT,		// ADC light sensor
+	ADDR_ADC_LIGHT = 0,		// ADC light sensor
 #endif
 #if EN_BH1750
-	ADDR_BH1750,		// BH1750 light
+	ADDR_BH1750 = 0,		// BH1750 light
 #endif
 #if EN_DS18B20
-	ADDR_DS18B20,		// DS18B20 temperature
+	ADDR_DS18B20 = 1,		// DS18B20 temperature
 #endif
 #if EN_DHT
-	ADDR_DHT_TEMP,		// DHT temperature
-	ADDR_DHT_HUM,		// DHT humidity
+	ADDR_DHT_TEMP = 2,		// DHT temperature
+	ADDR_DHT_HUM = 3,		// DHT humidity
 #endif
 #if EN_VBAT
-	ADDR_VBAT,			// BATTERY voltage (ADC)
-	CFG_VBATLOW,		// uint16_t vbatlow;
+	ADDR_VBAT = 4,			// BATTERY voltage (ADC)
+	CFG_VBATLOW = 5,		// uint16_t vbatlow;
 #endif
-	CFG_MAXSEND,		// uint8_t maxsend;
-	CFG_SLEEP,			// uint16_t sleeptm;
+	CFG_MAXSEND = 6,		// uint8_t maxsend;
+	CFG_SLEEP = 7,			// uint16_t sleeptm;
 } address_t;
 
 typedef enum {

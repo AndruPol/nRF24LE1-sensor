@@ -29,8 +29,7 @@
  //You must provide an alternate Galois multiply function that follows the following form (inlining the function is optional):
  //   [inline] unsigned char galois_multiply_function(unsigned char a, unsigned char b)
  // where a and b are the multiplier/muliplicand and the return value is the Galois product.
- extern inline unsigned char enc_dec_accel_galois_multiply(unsigned char a, unsigned char b);	//Extern function or include the header file for the function here
-
+ extern unsigned char enc_dec_accel_galois_multiply(unsigned char a, unsigned char b);	//Extern function or include the header file for the function here
  #define aes_user_defined_galois_multiplication(a, b)	enc_dec_accel_galois_multiply(a, b)	//Change the name of the second function to your own
 #endif
 

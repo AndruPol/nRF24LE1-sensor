@@ -40,8 +40,8 @@ static uint8_t waitpin(uint8_t val)
 
 void dht_init(void) {
 	gpio_pin_configure(DHTPIN,
-		GPIO_PIN_CONFIG_OPTION_DIR_INPUT
-		| GPIO_PIN_CONFIG_OPTION_PIN_MODE_INPUT_BUFFER_ON_PULL_UP_RESISTOR
+			GPIO_PIN_CONFIG_OPTION_DIR_INPUT
+			| GPIO_PIN_CONFIG_OPTION_PIN_MODE_INPUT_BUFFER_ON_NO_RESISTORS
 	);
 }
 
@@ -49,7 +49,7 @@ void dht_init(void) {
 dhterror_t dht_read(int *temp, int *hum) {
 	uint8_t j, i;
 	uint8_t datadht[5] = {0,0,0,0,0};
-	uint16_t crcdata = 0;
+	uint8_t crcdata = 0;
 
 	//pin as output and set 0
 	gpio_pin_configure(DHTPIN,

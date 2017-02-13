@@ -23,6 +23,6 @@ typedef enum {
 	DS_CRC_ERROR,
 } dserror_t;
 
-dserror_t ds18b20_read(float *temp);
+dserror_t ds18b20_read(int *temp);
 
 #endif /* DS18B20_H_ */

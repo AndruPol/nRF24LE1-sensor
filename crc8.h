@@ -9,7 +9,7 @@
 #define CRC8_H_
 
 // use CRC8 source table (increase program size ~100bytes)
-#define USECRC8TBL		0
+#define USECRC8TBL		1
 
 #include <stdint.h>
 

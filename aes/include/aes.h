@@ -54,17 +54,22 @@ typedef struct
 {
 	//For w, use the worst case size (i.e., that for 256 bit keys)
 	unsigned char state[4][Nb];
-	unsigned char w[4][Nb * (Nr_256 + 1)];
+#if 0 // save ram memory
+//	unsigned char w[4][Nb * (Nr_256 + 1)];
+#endif
+	unsigned char w[4][Nb * (Nr_128 + 1)];
 
 	//Nb is left out since it is always 4, there's no need to waste a byte of memory for it
 	unsigned char Nk;
 	unsigned char Nr;
 
 	//Variable to hold initialization vector or intermediate data in CBC, CFB, and OFB modes
+#if 0	//save ram memory
 	unsigned char iv_or_intermediate_data[16];
 
 	//Variable to hold a remaining bytes of key block data used for CFB and OFB modes
 	unsigned int rem_key_bytes;
+#endif
 } aes_data_t;
 
 

@@ -87,16 +87,13 @@ static uint8_t OneWireInByte(void)
 	return d;
 }
 
-dserror_t ds18b20_read(float *temp)
+// read DS18B20 tempearature in 1/10 C
+dserror_t ds18b20_read(int *temp)
 {
     uint8_t SignBit;
     uint8_t data[2];
     int16_t TReading;
     uint16_t convtm;
-
-	gpio_pin_configure(DSPIN,
-			GPIO_PIN_CONFIG_OPTION_DIR_INPUT
-	);
 
 	if (!OneWireReset()) {
 		return DS_NOT_FOUND;
@@ -147,7 +144,7 @@ dserror_t ds18b20_read(float *temp)
 		TReading = (TReading ^ 0xffff) + 1;
 	}
 
-	*temp = (float)((6 * TReading) + TReading / 4) / 100;
+	*temp = (int32_t)((6 * TReading) + TReading / 4) / 10;
 
 	return DS_NO_ERROR;
 }
