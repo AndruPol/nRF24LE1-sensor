@@ -19,17 +19,19 @@ OBJFILES := $(addprefix $(OBJDIR)/,$(OBJFILES))
 LDSDCC = -L/usr/local/share/sdcc/lib/large -lmcs51 -llibsdcc -llibsdcc.lib
 LDNRF = -Lsdk/$(TARGET)/lib -lnrf24le1
 LDAES = -Laes/lib -laes
+LDtinyAES = -Ltiny-AES128/lib -laes
 
 LIBNRF = sdk/$(TARGET)/lib/nrf24le1.lib
 LIBAES = aes/lib/aes.lib
+LIBtinyAES = tiny-AES128/lib/aes.lib
 
-CCFLAGS=-Isdk/include -Isdk/$(TARGET)/include/ -Iaes/include/ --std-c99 --opt-code-size $(MEMORYMODEL) 
-LDFLAGS= $(LDSDCC) $(LDNRF) $(LDAES) 
+CCFLAGS=--model-large --std-c99 --opt-code-size -Isdk/include -Isdk/$(TARGET)/include/ -Iaes/include/ -Itiny-AES128/include/ 
+LDFLAGS=--code-loc 0x0000 --code-size 0x4000 --xram-loc 0x0000 --xram-size 0x400 $(LDSDCC) $(LDNRF) $(LDAES) $(LDtinyAES)
  
 PROJECTBIN = $(BUILD)/$(PROJECT).bin
 CRC8CALC = tools/crc8calc
 
-all: $(LIBNRF) $(LIBAES) $(PROJECTBIN)
+all: $(LIBNRF) $(LIBtinyAES) $(PROJECTBIN)
 
 -include $(DEPFILES)
 
@@ -43,7 +45,7 @@ $(OBJDIR)/%.rel : %.c $(DEPFILES)
 $(BUILD)/$(PROJECT).ihx : $(OBJFILES)
 	@echo
 	@echo "Building hex file '$@'"
-	sdcc $(CCFLAGS) $(LDFLAGS) $(OBJFILES) main.c -o $@
+	sdcc $(CCFLAGS) $(OBJFILES) main.c -o $@ $(LDFLAGS) 
 	@echo "Finished building hex file '$@'"
 
 $(BUILD)/%.bin: $(BUILD)/%.ihx
@@ -53,12 +55,15 @@ $(BUILD)/%.bin: $(BUILD)/%.ihx
 	@echo "Finished building binary file '$@'"
 	# copy to home
 	cp -vf $(PROJECTBIN) ~/ 
-	
+
 $(LIBNRF):
 	make -C sdk all
 
 $(LIBAES):
 	make -C aes all
+
+$(LIBtinyAES):
+	make -C tiny-AES128 all
 
 $(DEPDIR)/%.d: %.c %.h
 	@echo
@@ -84,5 +89,6 @@ cleanall:
 	rm -rf  $(BUILD)/* && rmdir $(BUILD)
 	make -C sdk clean
 	make -C aes clean
+	make -C tiny-AES128 clean
 	
 .PHONY: all clean cleanall tools

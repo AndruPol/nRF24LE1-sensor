@@ -5,9 +5,14 @@
 #include "main.h"
 
 #if EN_AES
-#include "aes.h"
-#include "aes_user_options.h"
+#define AES_TINY	1
+#if AES_TINY
+#include "tiny-AES128/include/aes.h"
+#else
+#include "aes/include/aes.h"
+#include "aes/include/aes_user_options.h"
 aes_data_t aes_data;
+#endif
 MESSAGE_T aesbuf;
 #endif
 
@@ -43,7 +48,7 @@ unsigned char enc_dec_accel_galois_multiply(unsigned char a, unsigned char b)
 void radio_init() {
 	uint8_t setup;
 
-#if EN_AES
+#if EN_AES && ! AES_TINY
 	if (config.useaes) {
 		aes_initialize(&aes_data, AES_KEY_LENGTH_128_BITS, config.aeskey, NULL);
 	}
@@ -100,7 +105,11 @@ void rfsend(const MESSAGE_T *msg) {
 	uint8_t retry = config.maxsend;
 #if EN_AES
 	if (config.useaes) {
+#if AES_TINY
+		AES128_ECB_encrypt((uint8_t*) msg, config.aeskey, (uint8_t*) aesbuf);
+#else
 		aes_encrypt_ecb(&aes_data, (unsigned char *) msg, (unsigned char *) aesbuf);
+#endif
 	}
 	else {
 		memcpy(&aesbuf, msg, MSGLEN);
@@ -163,7 +172,11 @@ uint8_t rfread(MESSAGE_T *msg, uint16_t timeout) {
 #if EN_AES
 	if (state) {
 		if (config.useaes) {
+#if AES_TINY
+			AES128_ECB_decrypt((uint8_t*) aesbuf, config.aeskey, (uint8_t*) msg);
+#else
 			aes_decrypt_ecb(&aes_data, (unsigned char *) aesbuf, (unsigned char *) msg);
+#endif
 		}
 		else {
 			memcpy(msg, &aesbuf, MSGLEN);

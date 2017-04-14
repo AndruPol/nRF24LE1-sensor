@@ -8,7 +8,7 @@
  *
  */
 
-// P1.3 - номер пина DS18B20
+// P1.3 - DS18B20 pin
 #define DSPIN	GPIO_PIN_ID_P1_3
 
 #include <stdint.h>
@@ -17,6 +17,7 @@
 #include "delay.h"
 #include "interrupt.h"
 
+#include "crc8.h"
 #include "ds18b20.h"
 
 static uint8_t OneWireReset(void)
@@ -30,9 +31,9 @@ static uint8_t OneWireReset(void)
 	gpio_pin_configure(DSPIN,
 			GPIO_PIN_CONFIG_OPTION_DIR_INPUT
 	);
-	delay_us(60);
+	delay_us(80);
 	r = !gpio_pin_val_read(DSPIN);
-	delay_us(440);
+	delay_us(400);
 	return r;
 }
 
@@ -41,28 +42,29 @@ static void OneWireOutByte(uint8_t d)
 	uint8_t n;
 
 	for(n = 8; n > 0; n--) {
-		if ((d & 0x01) == 1) {
+		if (d & 0x01) {
 		   gpio_pin_configure(DSPIN,
 				   GPIO_PIN_CONFIG_OPTION_DIR_OUTPUT
 				   | GPIO_PIN_CONFIG_OPTION_OUTPUT_VAL_CLEAR
 		   );
-		   delay_us(2); //5
+		   delay_us(1);
 		   gpio_pin_configure(DSPIN,
 				   GPIO_PIN_CONFIG_OPTION_DIR_INPUT
 		   );
-		   delay_us(60);
+		   delay_us(49);
 		}
 		else {
     	  gpio_pin_configure(DSPIN,
     			  GPIO_PIN_CONFIG_OPTION_DIR_OUTPUT
 				  | GPIO_PIN_CONFIG_OPTION_OUTPUT_VAL_CLEAR
     	  );
-    	  delay_us(60);
+    	  delay_us(49);
     	  gpio_pin_configure(DSPIN,
     			  GPIO_PIN_CONFIG_OPTION_DIR_INPUT
     	  );
+    	  delay_us(1);
 		}
-		d = d>>1;
+		d = d >> 1;
 	}
 }
 
@@ -75,11 +77,11 @@ static uint8_t OneWireInByte(void)
 				GPIO_PIN_CONFIG_OPTION_DIR_OUTPUT
 				| GPIO_PIN_CONFIG_OPTION_OUTPUT_VAL_CLEAR
 		);
-		delay_us(2); // 5
+		delay_us(1);
 		gpio_pin_configure(DSPIN,
 				GPIO_PIN_CONFIG_OPTION_DIR_INPUT
 		);
-		delay_us(2); // 5
+		delay_us(2);
 		b = gpio_pin_val_read(DSPIN);
 		delay_us(50);
 		d = (d >> 1) | (b << 7);
@@ -90,10 +92,9 @@ static uint8_t OneWireInByte(void)
 // read DS18B20 tempearature in 1/10 C
 dserror_t ds18b20_read(int *temp)
 {
-    uint8_t SignBit;
-    uint8_t data[2];
-    int16_t TReading;
-    uint16_t convtm;
+    uint8_t i, data[9], crc = 0;
+    uint16_t trow, convtm;
+    float decimal;
 
 	if (!OneWireReset()) {
 		return DS_NOT_FOUND;
@@ -117,7 +118,7 @@ dserror_t ds18b20_read(int *temp)
 
 	// wait while temperature value not ready
 	convtm = 400;	// ~200ms
-	while (OneWireInByte() != 0xff && --convtm > 0);
+	while (!gpio_pin_val_read(DSPIN) && --convtm > 0);
 	// conversion timeout
 	if (convtm == 0) {
 		return DS_TIMEOUT;
@@ -131,21 +132,32 @@ dserror_t ds18b20_read(int *temp)
 	// 0xbe get temperature from ram
 	OneWireOutByte(READ_SCR_CMD);
 
-	data[0] = OneWireInByte();
-	data[1] = OneWireInByte();
-
-	gpio_pin_configure(DSPIN,
-			GPIO_PIN_CONFIG_OPTION_DIR_INPUT
-	);
-
-	TReading = (int16_t)(data[1] << 8) | (int16_t)data[0];
-	SignBit = TReading & 0x8000;
-	if (SignBit) {
-		TReading = (TReading ^ 0xffff) + 1;
+	for (i = 0; i < 9; i++) {
+		/* Read byte by byte */
+		data[i] = OneWireInByte();
 	}
 
-	*temp = (int32_t)((6 * TReading) + TReading / 4) / 10;
+	if (CRC8(data, 8) != data[8]) {
+		return DS_CRC_ERROR;
+	}
+
+	/* First two bytes of scratchpad are temperature values */
+	trow = ((int16_t) data[1] << 8) | data[0];
+
+	/* Check if temperature is negative */
+	i = 0;
+	if (trow & 0x8000) {
+		/* Two's complement, temperature is negative */
+		trow = ~trow + 1;
+		i = 1;
+	}
+
+	decimal = (float)((int16_t) trow >> 2) / 4;	// 10bit
+	if (i) {
+		decimal = 0 - decimal;
+	}
+
+	*temp = (int) (decimal * 10);
 
 	return DS_NO_ERROR;
 }
-
