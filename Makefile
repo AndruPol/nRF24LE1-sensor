@@ -3,7 +3,7 @@ PROJECT = nrf24le1-sensor
 TARGET = _target_sdcc_nrf24le1_32
 MEMORYMODEL = --model-large
 
-HEX2BIN = hex2bin
+HEX2BIN = ../hex2bin/hex2bin
 
 BUILD := build
 OBJDIR := $(BUILD)/obj
