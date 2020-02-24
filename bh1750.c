@@ -11,7 +11,6 @@
 #define BH1750_ADDR 		0x23 // device address
 #define BH1750_PWR_DOWN		0x0	 // No active state.
 #define BH1750_CONT_HMODE	0x10 // Continuously H-Resolution Mode
-#define BH1750_DELAY		200	 // wait results (datasheet says max. 180ms)
 
 #include "delay.h"
 #include "w2.h"
@@ -27,10 +26,6 @@ void bh1750_init(void) {
 				 );
 }
 
-void bh1750_stop(void) {
-	w2_disable();
-}
-
 bh1750error_t bh1750_read(uint16_t *light) {
 	uint8_t addr, txbuf=0, rxbuf[2];
 
@@ -38,7 +33,7 @@ bh1750error_t bh1750_read(uint16_t *light) {
 	if (w2_master_write_to(BH1750_ADDR, &addr, 1, &txbuf, 0) == W2_NACK_VAL)
 		return BH1750_TIMEOUT;
 
-	delay_ms(BH1750_DELAY);
+	delay_ms(BH1750_WAIT);
 
 	if (w2_master_cur_address_read(BH1750_ADDR, rxbuf, 2) == W2_NACK_VAL)
 		return BH1750_ERROR;
@@ -48,6 +43,29 @@ bh1750error_t bh1750_read(uint16_t *light) {
 
 	*light = (uint32_t) ((rxbuf[0] << 8) + rxbuf[1]) * 10 / 12;
 
-	return BH1750_NO_ERROR;
+	return BH1750_OK;
 }
 
+bh1750error_t bh1750_ask(void) {
+	uint8_t addr, txbuf=0;
+
+	addr = BH1750_CONT_HMODE;
+	if (w2_master_write_to(BH1750_ADDR, &addr, 1, &txbuf, 0) == W2_NACK_VAL)
+		return BH1750_TIMEOUT;
+
+	return BH1750_OK;
+}
+
+bh1750error_t bh1750_read_nowait(uint16_t *light) {
+	uint8_t addr, txbuf=0, rxbuf[2];
+
+	if (w2_master_cur_address_read(BH1750_ADDR, rxbuf, 2) == W2_NACK_VAL)
+		return BH1750_ERROR;
+
+	addr = BH1750_PWR_DOWN;
+	w2_master_write_to(BH1750_ADDR, &addr, 1, &txbuf, 0);
+
+	*light = (uint32_t) ((rxbuf[0] << 8) + rxbuf[1]) * 10 / 12;
+
+	return BH1750_OK;
+}

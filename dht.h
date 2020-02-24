@@ -9,7 +9,7 @@
 #define DHT_H_
 
 typedef enum {
-	DHT_NO_ERROR,
+	DHT_OK,
 	DHT_NO_RESPONSE,
 	DHT_TIMEOUT_ERROR,
 	DHT_CHECKSUM_ERROR,
@@ -17,6 +17,6 @@ typedef enum {
 } dhterror_t;
 
 void dht_init(void);
-dhterror_t dht_read(int *temp, int *hum);
+dhterror_t dht_read(int16_t *temp, uint16_t *hum);
 
 #endif /* DHT_H_ */

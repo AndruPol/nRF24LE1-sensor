@@ -46,7 +46,7 @@ void dht_init(void) {
 }
 
 /* temperature in 1/10 deg C, humidity in 1/10 % */
-dhterror_t dht_read(int *temp, int *hum) {
+dhterror_t dht_read(int16_t *temp, uint16_t *hum) {
 	uint8_t j, i;
 	uint8_t datadht[5] = {0,0,0,0,0};
 	uint8_t crcdata = 0;
@@ -58,7 +58,7 @@ dhterror_t dht_read(int *temp, int *hum) {
 			| GPIO_PIN_CONFIG_OPTION_PIN_MODE_OUTPUT_BUFFER_NORMAL_DRIVE_STRENGTH
 	);
 
-	delay_ms(18);	// reset 1-20ms
+	delay_ms(1);	// reset 1-20ms
 
 	//pin as input
 	gpio_pin_configure(DHTPIN,
@@ -105,15 +105,15 @@ dhterror_t dht_read(int *temp, int *hum) {
 
     if ((datadht[1] == 0) && (datadht[3] == 0)) {
     	// dht11
-	    *hum=datadht[2]*10;
-	    *temp=datadht[0]*10;
+	    *hum = datadht[2]*10;
+	    *temp = datadht[0]*10;
     }
     else {
     	// dht22
-    	*hum = ((unsigned int)datadht[0] << 8) | (unsigned int)datadht[1];
-    	*temp = (((unsigned int)datadht[2] & 0x7F) << 8) | (unsigned int)datadht[3];
+    	*hum = ((uint16_t) datadht[0] << 8) | (uint16_t) datadht[1];
+    	*temp = (((uint16_t) datadht[2] & 0x7F) << 8) | (uint16_t) datadht[3];
     	if (datadht[2] & 0x80) *temp *= -1;
 	}
 
-	return DHT_NO_ERROR;
+	return DHT_OK;
 }

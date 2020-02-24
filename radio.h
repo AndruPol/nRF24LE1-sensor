@@ -8,15 +8,18 @@
 #ifndef RADIO_H_
 #define RADIO_H_
 
-void radio_init();
-void setChannel(unsigned char channel);
-void setDataRate(unsigned char speed);
-void setAutoAck(unsigned char enable);
-void setCRCLength(unsigned char length);
-void setPALevel(unsigned char level);
-void openAllPipe(CONFIG_T *config);
+#include "main.h"
+
+#if EN_RF
+void rfinit();
 void rfsend(const MESSAGE_T *msg);
 uint8_t rfread(MESSAGE_T *msg, uint16_t timeout);
-void rfpwrDown(void);
+void rfdown(void);
+#else
+#define rfinit() {};
+#define rfsend(msg) {};
+#define rfread(msg, timeout) (0)
+#define rfdown() {};
+#endif
 
 #endif /* RADIO_H_ */

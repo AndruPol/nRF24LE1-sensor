@@ -48,14 +48,16 @@ static uint8_t OneWireReset(void)
 	gpio_pin_configure(DSPIN,
 			GPIO_PIN_CONFIG_OPTION_DIR_OUTPUT
 			| GPIO_PIN_CONFIG_OPTION_OUTPUT_VAL_CLEAR
+			| GPIO_PIN_CONFIG_OPTION_PIN_MODE_OUTPUT_BUFFER_NORMAL_DRIVE_STRENGTH
 	);
 	delay_us(480);
 	gpio_pin_configure(DSPIN,
 			GPIO_PIN_CONFIG_OPTION_DIR_INPUT
+			| GPIO_PIN_CONFIG_OPTION_PIN_MODE_INPUT_BUFFER_ON_NO_RESISTORS
 	);
-	delay_us(80);
+	delay_us(70);
 	r = !gpio_pin_val_read(DSPIN);
-	delay_us(400);
+	delay_us(410);
 	return r;
 }
 
@@ -66,23 +68,27 @@ static void OneWireOutByte(uint8_t d)
 	for(n = 8; n > 0; n--) {
 		if (d & 0x01) {
 		   gpio_pin_configure(DSPIN,
-				   GPIO_PIN_CONFIG_OPTION_DIR_OUTPUT
-				   | GPIO_PIN_CONFIG_OPTION_OUTPUT_VAL_CLEAR
+				GPIO_PIN_CONFIG_OPTION_DIR_OUTPUT
+				| GPIO_PIN_CONFIG_OPTION_OUTPUT_VAL_CLEAR
+				| GPIO_PIN_CONFIG_OPTION_PIN_MODE_OUTPUT_BUFFER_NORMAL_DRIVE_STRENGTH
 		   );
 		   delay_us(1);
 		   gpio_pin_configure(DSPIN,
-				   GPIO_PIN_CONFIG_OPTION_DIR_INPUT
+				GPIO_PIN_CONFIG_OPTION_DIR_INPUT
+				| GPIO_PIN_CONFIG_OPTION_PIN_MODE_INPUT_BUFFER_ON_NO_RESISTORS
 		   );
 		   delay_us(50);
 		}
 		else {
     	  gpio_pin_configure(DSPIN,
-    			  GPIO_PIN_CONFIG_OPTION_DIR_OUTPUT
-				  | GPIO_PIN_CONFIG_OPTION_OUTPUT_VAL_CLEAR
+    			GPIO_PIN_CONFIG_OPTION_DIR_OUTPUT
+				| GPIO_PIN_CONFIG_OPTION_OUTPUT_VAL_CLEAR
+				| GPIO_PIN_CONFIG_OPTION_PIN_MODE_OUTPUT_BUFFER_NORMAL_DRIVE_STRENGTH
     	  );
     	  delay_us(50);
     	  gpio_pin_configure(DSPIN,
-    			  GPIO_PIN_CONFIG_OPTION_DIR_INPUT
+    			GPIO_PIN_CONFIG_OPTION_DIR_INPUT
+				| GPIO_PIN_CONFIG_OPTION_PIN_MODE_INPUT_BUFFER_ON_NO_RESISTORS
     	  );
     	  delay_us(1);
 		}
@@ -98,10 +104,12 @@ static uint8_t OneWireInByte(void)
 		gpio_pin_configure(DSPIN,
 				GPIO_PIN_CONFIG_OPTION_DIR_OUTPUT
 				| GPIO_PIN_CONFIG_OPTION_OUTPUT_VAL_CLEAR
+				| GPIO_PIN_CONFIG_OPTION_PIN_MODE_OUTPUT_BUFFER_NORMAL_DRIVE_STRENGTH
 		);
 		delay_us(1);
 		gpio_pin_configure(DSPIN,
 				GPIO_PIN_CONFIG_OPTION_DIR_INPUT
+				| GPIO_PIN_CONFIG_OPTION_PIN_MODE_INPUT_BUFFER_ON_NO_RESISTORS
 		);
 		delay_us(2);
 		b = gpio_pin_val_read(DSPIN);
@@ -112,10 +120,9 @@ static uint8_t OneWireInByte(void)
 }
 
 // read DS18B20 tempearature in 1/10 C
-dserror_t ds18b20_read(int *temp)
+dserror_t ds18b20_read(int16_t *temp)
 {
     uint8_t i, data[9], crc = 0;
-    uint16_t convtm;
 
 	if (!OneWireReset()) {
 		return DS_NOT_FOUND;
@@ -138,12 +145,7 @@ dserror_t ds18b20_read(int *temp)
 	OneWireOutByte(START_CONV_CMD);
 
 	// wait while temperature value not ready
-	convtm = 400;	// ~200ms
-	while (!gpio_pin_val_read(DSPIN) && --convtm > 0);
-	// conversion timeout
-	if (convtm == 0) {
-		return DS_TIMEOUT;
-	}
+	delay_ms(DS18B20_WAIT);
 
 	if (!OneWireReset()) {
 		return DS_NOT_FOUND;
@@ -165,5 +167,58 @@ dserror_t ds18b20_read(int *temp)
 	/* First two bytes of scratchpad are temperature values */
 	*temp = tconv((int16_t)(data[1] << 8) | data[0]);
 
-	return DS_NO_ERROR;
+	return DS_OK;
+}
+
+// ask DS18B20 temperature
+dserror_t ds18b20_ask(void)
+{
+	if (!OneWireReset()) {
+		return DS_NOT_FOUND;
+	}
+	// 0xCC skip ROM
+	OneWireOutByte(SKIP_ROM_CMD);
+
+	// setting precision 10bit
+	OneWireOutByte(WRITE_SCR_CMD);
+	OneWireOutByte(REG_TH);
+	OneWireOutByte(REG_TL);
+	OneWireOutByte(REG_CONFIG);
+
+	if (!OneWireReset()) {
+		return DS_NOT_FOUND;
+	}
+	// 0xCC skip ROM
+	OneWireOutByte(SKIP_ROM_CMD);
+	// 0x44 start conversion
+	OneWireOutByte(START_CONV_CMD);
+	return DS_OK;
+}
+
+// read DS18B20 tempearature in 1/10 C
+dserror_t ds18b20_read_nowait(int16_t *temp)
+{
+    uint8_t i, data[9], crc = 0;
+
+	if (!OneWireReset()) {
+		return DS_NOT_FOUND;
+	}
+
+	OneWireOutByte(SKIP_ROM_CMD);
+	// 0xbe get temperature from ram
+	OneWireOutByte(READ_SCR_CMD);
+
+	for (i = 0; i < 9; i++) {
+		/* Read byte by byte */
+		data[i] = OneWireInByte();
+	}
+
+	if (CRC8(data, 8) != data[8]) {
+		return DS_CRC_ERROR;
+	}
+
+	/* First two bytes of scratchpad are temperature values */
+	*temp = tconv((int16_t)(data[1] << 8) | data[0]);
+
+	return DS_OK;
 }

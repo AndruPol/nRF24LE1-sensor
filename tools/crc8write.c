@@ -1,5 +1,5 @@
 /*
- * CRC8 calculator
+ * CRC8 file calculator
  */
 
 #include <stdint.h>
@@ -7,7 +7,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#define MAXSIZE		1024
+#define MAXSIZE		512
 
 // CRC8 data source table
 static const uint8_t dscrc_table[] = {
@@ -28,50 +28,68 @@ static const uint8_t dscrc_table[] = {
   233,183, 85, 11,136,214, 52,106, 43,117,151,201, 74, 20,246,168,
   116, 42,200,150, 21, 75,169,247,182,232, 10, 84,215,137,107, 53};
 
-static uint8_t CRC8( uint8_t *addr, uint8_t len)
+static uint8_t CRC8( uint8_t *addr, uint16_t len)
 {
-   uint8_t crc = 0;
+  uint8_t crc = 0;
 
   while (len--) {
-	  crc = dscrc_table[crc ^ *addr++];
+    crc = dscrc_table[crc ^ *addr++];
   }
   return crc;
 }
 
 
 int main(int argc, char *argv[]) {
+  uint8_t data[MAXSIZE];
+  FILE * pFile;
 
-	uint8_t data[MAXSIZE] = {0};
-	FILE * pFile;
+  if (argc < 3) {
+    printf("\nCRC8 to file writer:\nUsage: %s input_file output_file\n", argv[0]);
+    return 1;
+  }
 
-    if (argc < 3) {
-        printf("\nCRC8 calculator for configuration file\nUsage: %s filename length\n", argv[0]);
-        exit(1);
+  pFile = fopen(argv[1] , "rb");
+  if (pFile == NULL) {
+    printf("File open error: %s\n", argv[1]);
+    return 1;
+  }
+
+  uint16_t bytes = 0;
+  int ch;
+  while ((ch = fgetc(pFile)) != EOF) {
+    if (bytes > MAXSIZE) {
+      printf("File size error: filesize > %d\n", MAXSIZE);
+      fclose(pFile);
+      return 1;
     }
-    uint16_t bytes = atoi(argv[2]);
-    printf("Filename: %s, array length: %d\n", argv[1], bytes);
+    data[bytes++] = (uint8_t) ch;
+  }
+  fclose(pFile);
 
-    if (bytes > MAXSIZE-1) {
-    	printf("Max array length error: %d\n", MAXSIZE);
-    	return 1;
+  uint16_t filesize = bytes--;
+  uint8_t crc = CRC8(data, filesize);
+
+  pFile = fopen(argv[2] , "wb");
+  if (pFile == NULL) {
+    printf("File open error: %s\n", argv[2]);
+    return 1;
+  }
+
+  bytes = 0;
+  while (bytes < filesize) {
+    if (fputc(data[bytes++], pFile) == EOF) {
+      printf("Write to file error: %d\n", bytes--);
+      fclose(pFile);
+      return 1;
     }
+  }
 
-    pFile = fopen (argv[1] , "r");
-    if (pFile == NULL) {
-    	perror ("Error opening file");
-    	return 1;
-    }
+  if (fputc(crc, pFile) == EOF) {
+    printf("Write CRC to file error\n");
+  }
+  fclose(pFile);
 
-    if (fread (data, 1, bytes, pFile) != bytes) {
-    	printf("File read error\n");
-       	fclose (pFile);
-    	return 1;
-    }
-   	fclose (pFile);
+  printf("File: %s, size %d, CRC8: 0x%02X\n", argv[1], filesize, crc);
 
-    uint8_t crc = CRC8(data, bytes);
-    printf("Array size %d, CRC8: 0x%02X\n", bytes, crc);
-
-    return 0;
-
+  return 0;
 }

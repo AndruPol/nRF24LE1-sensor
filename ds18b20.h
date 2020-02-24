@@ -16,13 +16,17 @@
 #define REG_TL			0xff
 #define REG_CONFIG		0x3f	// precision 10bit
 
+#define DS18B20_WAIT	200	 	// wait results (datasheet says max. 187.5ms on 10bit prec)
+
 typedef enum {
-	DS_NO_ERROR,
+	DS_OK,
 	DS_NOT_FOUND,
 	DS_TIMEOUT,
 	DS_CRC_ERROR,
 } dserror_t;
 
-dserror_t ds18b20_read(int *temp);
+dserror_t ds18b20_read(int16_t *temp);
+dserror_t ds18b20_ask(void);
+dserror_t ds18b20_read_nowait(int16_t *temp);
 
 #endif /* DS18B20_H_ */
