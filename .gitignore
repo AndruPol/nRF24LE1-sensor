@@ -5,5 +5,4 @@ aes/lib
 aes/obj
 .project
 .cproject
-*.dat
 !build/nrf24le1-sensor.bin
